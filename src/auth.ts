@@ -4,6 +4,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { User } from './models/user'
 import bcrypt from 'bcryptjs'
 import { LoginFormSchema } from './lib/definitions'
+import { connectDB } from './db/connect'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -28,7 +29,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (validatedFields.success) {
           const { email, password } = credentials
-
+          await connectDB()
           const user = await User.findOne({ email })
 
           if (!user || !user.password) {
