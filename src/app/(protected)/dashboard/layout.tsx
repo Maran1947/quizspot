@@ -4,11 +4,13 @@ import DashboardSidebar from '@/components/dashboard/sidebar'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="w-full">
+    <div className="w-full h-screen overflow-hidden">
       <DashboardHeader />
       <div className="w-full flex">
         <DashboardSidebar />
-        {children}
+        <div className="w-full h-[92vh] bg-[var(--color-surface-mixed-100)] overflow-y-auto" >
+          {children}
+        </div>
       </div>
     </div>
   )

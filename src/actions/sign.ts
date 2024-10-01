@@ -25,7 +25,7 @@ export const signinHandler = async (formData: FormData) => {
       password,
       redirect: false
     })
-    redirectPath = '/settings'
+    redirectPath = '/dashboard'
   } catch (error) {
     console.log(error)
     if (error instanceof Error) {

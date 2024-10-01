@@ -6,6 +6,7 @@ interface StepperProps {
 }
 
 const Stepper = ({ activeStep }: StepperProps) => {
+  console.log({activeStep})
   return (
     <ol className="w-full flex items-center text-sm font-medium text-center sm:text-base">
       <li className="flex md:w-full items-center text-blue-600  sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10">

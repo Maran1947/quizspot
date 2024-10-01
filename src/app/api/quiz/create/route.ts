@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       topic: quizDetails.topic,
       totalQuestions: quizDetails.totalQuestions,
       timePerQuestion: quizDetails.timePerQuestion,
-      userId: user._id,
+      user: user._id,
       roomCode: nanoid(10)
     })
 
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     const newQuizQuestions = quizQuestions.map(
       (quizQuestion: IQuizQuestion) => {
         const newQuestion = new Question({
-          quizId: newQuiz._id,
+          quiz: newQuiz._id,
           question: quizQuestion.question,
           correctOption: quizQuestion.correctOption,
           options: quizQuestion.options

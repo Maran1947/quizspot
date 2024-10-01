@@ -1,12 +1,29 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import { IQuizDetails } from '@/interfaces/quiz'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 
 interface QuzInfoProps {
   setActiveStep: Dispatch<SetStateAction<number>>
+  setQuizDetails: Dispatch<SetStateAction<IQuizDetails | null>>
 }
 
-const QuizDetails = ({ setActiveStep }: QuzInfoProps) => {
+const QuizDetails = ({
+  setActiveStep,
+  setQuizDetails
+}: QuzInfoProps) => {
+  const [title, setTitle] = useState('')
+  const [topic, setTopic] = useState('')
+  const [totalQuestions, setTotalQuestions] = useState('')
+  const [timePerQuestion, setTimePerQuestion] = useState('')
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+
+    setQuizDetails({
+      title,
+      topic,
+      totalQuestions: parseInt(totalQuestions),
+      timePerQuestion: parseInt(timePerQuestion)
+    })
     setActiveStep(2)
   }
 
@@ -15,13 +32,14 @@ const QuizDetails = ({ setActiveStep }: QuzInfoProps) => {
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-400 text-sm font-bold mb-2"
             htmlFor="title"
           >
             Title
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            onChange={(e) => setTitle(e.target.value)}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline"
             id="title"
             type="text"
             placeholder="Enter your quiz title"
@@ -30,13 +48,14 @@ const QuizDetails = ({ setActiveStep }: QuzInfoProps) => {
         </div>
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-400 text-sm font-bold mb-2"
             htmlFor="topic"
           >
             Topic
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            onChange={(e) => setTopic(e.target.value)}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline"
             id="topic"
             type="text"
             placeholder="Enter your quiz topic"
@@ -45,13 +64,14 @@ const QuizDetails = ({ setActiveStep }: QuzInfoProps) => {
         </div>
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-400 text-sm font-bold mb-2"
             htmlFor="totalQuestions"
           >
             Total Questions
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            onChange={(e) => setTotalQuestions(e.target.value)}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline"
             id="totalQuestions"
             type="number"
             placeholder="eg. 5"
@@ -61,13 +81,14 @@ const QuizDetails = ({ setActiveStep }: QuzInfoProps) => {
         </div>
         <div className="mb-6">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-400 text-sm font-bold mb-2"
             htmlFor="username"
           >
             Time per question
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            onChange={(e) => setTimePerQuestion(e.target.value)}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline"
             id="username"
             type="number"
             placeholder="eg. 30"
@@ -80,13 +101,13 @@ const QuizDetails = ({ setActiveStep }: QuzInfoProps) => {
           <button
             onClick={() => setActiveStep(0)}
             type="button"
-            className="text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-black hover:text-white"
+            className="text-black text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-black hover:text-white"
           >
             Back
           </button>
           <button
             type="submit"
-            className="text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-black hover:text-white"
+            className="text-black text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-black hover:text-white"
           >
             Continue
           </button>

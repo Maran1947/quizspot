@@ -29,7 +29,7 @@ const ChooseQuizType = ({
         />
         <button
           type="button"
-          className="text-lg outline-none border border-gray-300 w-40 py-1 px-2 shadow hover:bg-black hover:text-white"
+          className="text-black text-lg outline-none border border-gray-300 w-40 py-1 px-2 shadow hover:bg-black hover:text-white"
           onClick={() => handleGenerateQuizType('custom')}
         >
           Custom Quiz
@@ -39,7 +39,7 @@ const ChooseQuizType = ({
         <Image src={aiQuizGif} alt="AI Quiz Gif" width={120} height={120} />
         <button
           type="button"
-          className="text-lg outline-none border border-gray-300 w-40 py-1 px-2 shadow hover:bg-black hover:text-white"
+          className="text-black text-lg outline-none border border-gray-300 w-40 py-1 px-2 shadow hover:bg-black hover:text-white"
           onClick={() => handleGenerateQuizType('ai')}
         >
           AI Quiz

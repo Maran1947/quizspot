@@ -9,10 +9,13 @@ export async function GET() {
     const session = await auth()
     await connectDB()
     const user = await User.findOne({ email: session?.user?.email })
+    
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 })
+    }
+    const quizzes = await Quiz.find({ user: user._id })
 
-    const quizzes = await Quiz.find({ userId: user._id })
-
-    return NextResponse.json({ success: true, quizzes })
+    return NextResponse.json({ success: true, quizzes }, { status: 200 })
   } catch (error) {
     console.log('Error occurred in get all quizzes by userId: ', error)
     return NextResponse.json(

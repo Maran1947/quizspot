@@ -51,7 +51,7 @@ export const signupHandler = async (formData: FormData) => {
       redirect: false
     })
 
-    redirectPath = '/settings'
+    redirectPath = '/dashboard'
   } catch (error) {
     console.log(error)
     throw new Error('Error occurred in creating user')
