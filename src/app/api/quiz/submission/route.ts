@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     }: {
       quizId: string
       answers: {
-        [key: string]: { id: string; optionNumber: number; value: string }
+        [key: string]: { id: string; optionNumber: number; optionText: string }
       }
     } = data
 
@@ -25,10 +25,10 @@ export async function POST(req: Request) {
 
     for (const questionId in answers) {
       newSubmissions.push({
-        userId: user._id,
-        quizId,
-        questionId,
-        answer: answers[questionId].id
+        user: user._id,
+        quiz: quizId,
+        question: questionId,
+        answer: answers[questionId].optionNumber
       })
     }
 

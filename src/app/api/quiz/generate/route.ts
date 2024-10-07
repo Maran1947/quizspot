@@ -3,13 +3,12 @@ import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   try {
-    const {
-      data: { quizDetails }
-    } = await req.json()
+    const data = await req.json()
+    const { quizDetails } = data
     const generatedQuestions = await generateQuizQuestions({
       topic: quizDetails.topic,
       totalQuestions: quizDetails.totalQuestions,
-      level: quizDetails.level
+      level: quizDetails.difficulty
     })
     return NextResponse.json(
       { success: true, generatedQuestions },

@@ -8,6 +8,7 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { quizId: string } }
 ) {
+
   const { quizId } = params
   try {
     const session = await auth()
@@ -15,19 +16,20 @@ export async function GET(
     const user = await User.findOne({ email: session?.user?.email })
 
     const submissions = await Submission.find({
-      quizId,
-      userId: user._id
-    }).populate(['quizId', 'questionId'])
+      quiz: quizId,
+      user: user._id
+    }).populate(['question']).exec()
 
     let totalCorrectAnswers = 0
     for (const submission of submissions) {
-      if (submission.answer === submission.questionId.correctOption) {
+      console.log(submission.answer , submission.question.correctOption)
+      if (submission.answer === submission.question.correctOption) {
         totalCorrectAnswers += 1
       }
     }
 
     const accuracy =
-      (totalCorrectAnswers / submissions[0].quizId.totalQuestions) * 100
+      (totalCorrectAnswers / submissions[0].quiz.totalQuestions) * 100
     const totalMarks = 10 * totalCorrectAnswers
 
     return NextResponse.json(

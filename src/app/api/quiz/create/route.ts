@@ -1,11 +1,11 @@
 import { auth } from '@/auth'
 import { connectDB } from '@/db/connect'
-import { IQuizQuestion } from '@/interfaces/quiz'
 import { Question } from '@/models/question'
 import { Quiz } from '@/models/quiz'
 import { User } from '@/models/user'
 import { NextResponse } from 'next/server'
 import { nanoid } from 'nanoid'
+import { IQuizQuestionPayload } from '@/interfaces/payload'
 
 export async function POST(req: Request) {
   try {
@@ -30,10 +30,12 @@ export async function POST(req: Request) {
     await newQuiz.save()
 
     const newQuizQuestions = quizQuestions.map(
-      (quizQuestion: IQuizQuestion) => {
+      (quizQuestion: IQuizQuestionPayload) => {
+        console.log(quizQuestion)
         const newQuestion = new Question({
           quiz: newQuiz._id,
-          question: quizQuestion.question,
+          questionText: quizQuestion.questionText,
+          questionNumber: quizQuestion.questionNumber,
           correctOption: quizQuestion.correctOption,
           options: quizQuestion.options
         })
