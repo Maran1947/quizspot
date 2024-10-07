@@ -1,8 +1,17 @@
 "use client";
 import { signinHandler } from "@/actions/sign";
 import React from "react";
+import toast from "react-hot-toast";
 
 const SigninPage = () => {
+
+  const handleSigninFormAction = async (formData: FormData) => {
+    const error = await signinHandler(formData)
+    if (error) {
+      toast.error(error)
+    }
+  }
+
   return (
     <section className="bg-[var(--color-surface-mixed-100)]">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -11,7 +20,7 @@ const SigninPage = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-800 md:text-2xl">
               Sign in to your account
             </h1>
-            <form className="space-y-4 md:space-y-6" action={signinHandler}>
+            <form className="space-y-4 md:space-y-6" action={handleSigninFormAction}>
               <div>
                 <label
                   htmlFor="email"

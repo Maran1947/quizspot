@@ -32,11 +32,11 @@ export const signinHandler = async (formData: FormData) => {
       const { type, cause } = error as AuthError
       switch (type) {
         case 'CredentialsSignin':
-          throw new Error('Invalid credentials.')
+          return 'Invalid credentials.'
         case 'CallbackRouteError':
-          throw new Error(cause?.err?.toString())
+          return cause?.err?.toString()
         default:
-          throw new Error('Something went wrong.')
+          return 'Something went wrong.'
       }
     }
   } finally {

@@ -20,7 +20,7 @@ export const signupHandler = async (formData: FormData) => {
       console.log({
         errors: validatedFields.error.flatten().fieldErrors
       })
-      return
+      return { errors: validatedFields.error.flatten().fieldErrors }
     }
 
     const { name, username, email, password } = validatedFields.data
@@ -30,7 +30,7 @@ export const signupHandler = async (formData: FormData) => {
     const isUserExists = await User.findOne({ email })
 
     if (isUserExists) {
-      throw new Error('User already exists!')
+      return { error: 'User already exists!' }
     }
 
     const salt = await bcrypt.genSalt(10)
@@ -54,7 +54,7 @@ export const signupHandler = async (formData: FormData) => {
     redirectPath = '/dashboard'
   } catch (error) {
     console.log(error)
-    throw new Error('Error occurred in creating user')
+    return { error: 'Something went wrong!'}
   } finally {
     if (redirectPath) {
       redirect(redirectPath)

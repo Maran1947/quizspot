@@ -1,6 +1,7 @@
 'use client'
 import { signupHandler } from '@/actions/signup'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 
 const SignupPage = () => {
   const [fullName, setFullName] = useState('')
@@ -8,6 +9,37 @@ const SignupPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [errors, setErrors] = useState<{
+    name?: string
+    password?: string
+    confirmPassword?: string
+    email?: string
+    username?: string
+  } | null>(null)
+
+  const handleSignupFormAction = async (formData: FormData) => {
+    if (formData.get('password') !== formData.get('confirmPassword')) {
+      setErrors({
+        confirmPassword: 'Password mismatch.'
+      })
+      return
+    }
+    const error = await signupHandler(formData)
+    console.log(error)
+    if (error?.errors) {
+      setErrors({
+        name: error.errors.name?.join(' - ') || '',
+        password: error.errors.password?.join(' - ') || '',
+        email: error.errors.email?.join(' - ') || '',
+        username: error.errors.username?.join(' - ') || ''
+      })
+      return
+    }
+
+    if (error?.error) {
+      toast.error(error.error)
+    }
+  }
 
   return (
     <section className="bg-[var(--color-surface-mixed-100)]">
@@ -17,8 +49,11 @@ const SignupPage = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-800 md:text-2xl">
               Create a new account
             </h1>
-            <form className="space-y-4 md:space-y-6" action={signupHandler}>
-            <div>
+            <form
+              className="space-y-4 md:space-y-6"
+              action={handleSignupFormAction}
+            >
+              <div>
                 <label
                   htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-500"
@@ -32,9 +67,10 @@ const SignupPage = () => {
                   name="name"
                   id="fullname"
                   className="bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                  placeholder="name@company.com"
+                  placeholder=""
                   required
                 />
+                {errors && errors.name && <span className='text-sm text-red-500' >{errors.name}</span>}
               </div>
               <div>
                 <label
@@ -50,9 +86,10 @@ const SignupPage = () => {
                   name="username"
                   id="username"
                   className="bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                  placeholder="name@company.com"
+                  placeholder=""
                   required
                 />
+                {errors && errors.username && <span className='text-sm text-red-500' >{errors.username}</span>}
               </div>
               <div>
                 <label
@@ -68,9 +105,10 @@ const SignupPage = () => {
                   name="email"
                   id="email"
                   className="bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                  placeholder="name@company.com"
+                  placeholder=""
                   required
                 />
+                {errors && errors.email && <span className='text-sm text-red-500' >{errors.email}</span>}
               </div>
               <div>
                 <label
@@ -85,10 +123,11 @@ const SignupPage = () => {
                   type="password"
                   name="password"
                   id="password"
-                  placeholder="••••••••"
+                  placeholder=""
                   className="bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   required
                 />
+                {errors && errors.password && <span className='text-sm text-red-500' >{errors.password}</span>}
               </div>
               <div>
                 <label
@@ -101,12 +140,15 @@ const SignupPage = () => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   type="password"
-                  name="confirmpPassword"
+                  name="confirmPassword"
                   id="confirmPassword"
-                  placeholder="••••••••"
+                  placeholder=""
                   className="bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   required
                 />
+                {errors && errors.confirmPassword && (
+                  <span className='text-sm text-red-500' >{errors.confirmPassword}</span>
+                )}
               </div>
               {/* <div className="flex items-center justify-between">
                 <div className="flex items-start">
