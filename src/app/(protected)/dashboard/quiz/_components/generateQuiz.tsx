@@ -1,12 +1,13 @@
-import { IQuizDetails, IQuizQuestion } from '@/interfaces/quiz'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import Question from './question'
 import { generateQuestionsTemplate } from '@/utils/questionTemplate'
 import axios from 'axios'
+import { IQuizDetailsPayload, IQuizQuestionPayload } from '@/interfaces/payload'
+import toast from 'react-hot-toast'
 
 interface GenerateQuizProps {
   generateQuizType: string
-  quizDetails: IQuizDetails | null
+  quizDetails: IQuizDetailsPayload | null
   setActiveStep: Dispatch<SetStateAction<number>>
   setQuizRoomCode: Dispatch<SetStateAction<string | null>>
 }
@@ -20,7 +21,7 @@ const GenerateQuiz = ({
   const [quizQuestionsFormData, setQuizQuestionsFormData] = useState<{
     [key: string]: string
   } | null>(null)
-  const [quizQuestions, setQuizQuestions] = useState<IQuizQuestion[]>([])
+  const [quizQuestions, setQuizQuestions] = useState<IQuizQuestionPayload[]>([])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -35,38 +36,48 @@ const GenerateQuiz = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (quizQuestionsFormData === null) {
-      alert('Please filled all questions!')
-      return
-    }
-    const quizData = {
-      quizType: generateQuizType,
-      quizDetails,
-      quizQuestions: Array.from({ length: quizDetails?.totalQuestions || 0 })
-        .map((_, index): IQuizQuestion | null => {
-          const questionIndex = index
-          const questionPrefix = `question-${questionIndex}`
-          if (!quizQuestionsFormData[questionPrefix]) {
-            return null
-          }
-          return {
-            questionNumber: questionIndex,
-            question: quizQuestionsFormData[questionPrefix],
-            correctOption:
-              quizQuestionsFormData[`${questionPrefix}-correct-option`],
-            options: ['a', 'b', 'c', 'd'].map((optionIndex, index) => {
-              return {
-                id: `${questionPrefix}-option-${optionIndex}`,
-                value:
-                  quizQuestionsFormData[
-                    `${questionPrefix}-option-${optionIndex}`
-                  ],
-                optionNumber: index
-              }
-            })
-          }
-        })
-        .filter((question) => question !== null)
+    let quizData
+
+    if (generateQuizType === 'ai') {
+      quizData = {
+        quizType: generateQuizType,
+        quizDetails,
+        quizQuestions
+      }
+    } else {
+      if (quizQuestionsFormData === null) {
+        toast.error('Please fill all questions!')
+        return
+      }
+      quizData = {
+        quizType: generateQuizType,
+        quizDetails,
+        quizQuestions: Array.from({ length: quizDetails?.totalQuestions || 0 })
+          .map((_, index): IQuizQuestionPayload | null => {
+            const questionIndex = index
+            const questionPrefix = `question-${questionIndex}`
+            if (!quizQuestionsFormData[questionPrefix]) {
+              return null
+            }
+            return {
+              questionNumber: questionIndex,
+              questionText: quizQuestionsFormData[questionPrefix],
+              correctOption:
+                quizQuestionsFormData[`${questionPrefix}-correct-option`],
+              options: ['A', 'B', 'C', 'D'].map((optionIndex) => {
+                return {
+                  id: `${questionPrefix}-option-${optionIndex}`,
+                  optionText:
+                    quizQuestionsFormData[
+                      `${questionPrefix}-option-${optionIndex}`
+                    ],
+                  optionNumber: optionIndex
+                }
+              })
+            }
+          })
+          .filter((question) => question !== null)
+      }
     }
 
     console.log({ quizQuestionsFormData, quizData })
@@ -82,18 +93,36 @@ const GenerateQuiz = ({
     }
   }
 
+  const getGeneratedQuestionsFromAI = async () => {
+    const data = {
+      quizDetails
+    }
+    try {
+      const response = await axios.post('/api/quiz/generate', data)
+      if (response.status === 200) {
+        const generatedQuestions = response.data.generatedQuestions
+        console.log(generatedQuestions)
+        setQuizQuestions(generatedQuestions)
+      }
+    } catch (error) {
+      console.log(error)
+      alert(error)
+    }
+  }
+
   useEffect(() => {
-    if (generateQuizType === 'ai')
-      setQuizQuestions(generateQuestionsTemplate(1))
-    else
+    if (generateQuizType === 'ai') {
+      getGeneratedQuestionsFromAI()
+    } else {
       setQuizQuestions(
         generateQuestionsTemplate(quizDetails?.totalQuestions || 0)
       )
+    }
   }, [generateQuizType, quizDetails])
 
   return (
     <div className="w-full h-[500px] flex flex-col items-center">
-      <form className="w-[80%]" onSubmit={handleSubmit}>
+      <form className="w-[95%]" onSubmit={handleSubmit}>
         <div className="text-black text-xl border border-gray-300 py-2 px-6 mb-4">
           {quizDetails?.title}
         </div>
@@ -103,7 +132,7 @@ const GenerateQuiz = ({
               <Question
                 key={`${question}-${index}`}
                 question={question}
-                index={index}
+                questionIndex={index}
                 handleChange={handleChange}
               />
             )

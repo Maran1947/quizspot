@@ -9,7 +9,7 @@ const Stepper = ({ activeStep }: StepperProps) => {
   console.log({activeStep})
   return (
     <ol className="w-full flex items-center text-sm font-medium text-center sm:text-base">
-      <li className="flex md:w-full items-center text-blue-600  sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10">
+      <li className={`flex md:w-full items-center text-blue-600  sm:after:content-[''] after:w-full after:h-1 after:border-b ${activeStep > 0 ? 'after:border-blue-600' : 'after:border-gray-300'} after:border-1 after:hidden sm:after:inline-block after:mx-4`}>
         <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200">
           {activeStep === 0 ? (
             <FaRegCircleDot className="me-2" />
@@ -27,7 +27,7 @@ const Stepper = ({ activeStep }: StepperProps) => {
           Quiz <span className="hidden sm:inline-flex sm:ms-2">Type</span>
         </span>
       </li>
-      <li className={`${activeStep > 0 ? 'text-blue-600' : 'text-gray-500'} flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10`}>
+      <li className={`${activeStep > 0 ? 'text-blue-600' : 'text-gray-500'} flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b ${activeStep > 1 ? 'after:border-blue-600' : 'after:border-gray-300'} after:border-1 after:hidden sm:after:inline-block after:mx-4`}>
         <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200">
           {activeStep === 1 ? (
             <FaRegCircleDot className="me-2" />
@@ -48,7 +48,7 @@ const Stepper = ({ activeStep }: StepperProps) => {
         </span>
       </li>
       <li className={`${activeStep > 1 ? 'text-blue-600' : 'text-gray-500'} flex items-center`}>
-        <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200">
+        <span className="flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-blue-600">
           {activeStep === 2 ? (
             <FaRegCircleDot className="me-2" />
           ) : activeStep < 2 ? (

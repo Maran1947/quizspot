@@ -1,30 +1,14 @@
 'use client'
 
-import axios from 'axios'
-import { useParams, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-
-interface IOption {
-  id: string
-  _id: string
-  value: string
-  optionNumber: number
-}
-
-interface IQuestion {
-  _id: string
-  question: string
-  createdAt: string
-  quizId: string
-  options: IOption[]
-}
-
-interface IQuiz {
-  _id: string
-  totalQuestions: number
-  quizType: string
-  timePerQuestion: number
-}
+import { useParams, useRouter } from 'next/navigation'
+import Link from 'next/link'
+import axios from 'axios'
+import Loading from '@/components/loading/loading'
+import { IOption, IQuestion, IQuiz } from '@/interfaces/quiz'
+import Timer from '../../../../../components/timer/timer'
+import { useTimer } from 'react-timer-hook'
+import toast from 'react-hot-toast'
 
 const QuizRoomPage = () => {
   const { quizRoomCode } = useParams()
@@ -34,7 +18,19 @@ const QuizRoomPage = () => {
   const [questions, setQuestions] = useState<IQuestion[]>([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState<{ [key: string]: IOption }>()
-  const [selectedOption, setSeletedOption] = useState<number | null>(null)
+  const [selectedOption, setSeletedOption] = useState<string | null>(null)
+  const [loading, setLoading] = useState<boolean | null>(null)
+  const [submissionLoading, setSubmissionLoading] = useState(false)
+  const [questionTimer, setQuestionTimer] = useState<Date | null>(null)
+
+  const { seconds, minutes, restart } = useTimer({
+    expiryTimestamp: new Date(),
+    onExpire: () => {
+      if (quiz?.timePerQuestion) {
+        setQuestionTimer(getTimerValue(quiz.timePerQuestion))
+      }
+    }
+  })
 
   const handleOptionClick = (option: IOption) => {
     setSeletedOption(option.optionNumber)
@@ -47,11 +43,20 @@ const QuizRoomPage = () => {
   }
 
   const handleContinue = () => {
+    if (quiz?.totalQuestions && currentQuestion + 1 >= quiz.totalQuestions) {
+      toast.success('Auto-submitting quiz...')
+      handleSubmit()
+      return
+    }
     setSeletedOption(null)
     setCurrentQuestion(currentQuestion + 1)
+    if (quiz?.timePerQuestion) {
+      restart(getTimerValue(quiz.timePerQuestion))
+    }
   }
 
   const handleSubmit = async () => {
+    setSubmissionLoading(true)
     try {
       console.log({ answers })
       const data = {
@@ -66,21 +71,35 @@ const QuizRoomPage = () => {
     } catch (error) {
       console.log(error)
       alert(error)
+    } finally {
+      setSubmissionLoading(false)
     }
+  }
+
+  const getTimerValue = (timePerQuestion: number) => {
+    const time = new Date()
+    time.setSeconds(time.getSeconds() + timePerQuestion)
+    return time
   }
 
   const getQuiz = async () => {
     try {
+      setLoading(true)
       const response = await axios.get(`/api/quiz/${quizRoomCode}`)
       if (response.status === 200) {
         console.log(response.data)
         setQuiz(response.data.quiz)
         setQuestions(response.data.questions)
         setCurrentQuestion(0)
+        restart(getTimerValue(response.data.quiz.timePerQuestion))
       }
     } catch (error) {
-      console.log(error)
-      alert(error)
+      if (axios.isAxiosError(error) && error.response?.status === 404) {
+        alert('Quiz not found!')
+        router.push('/quiz/join')
+      }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -89,30 +108,45 @@ const QuizRoomPage = () => {
       getQuiz()
     }
   }, [])
+
+  useEffect(() => {
+    handleContinue()
+  }, [questionTimer])
   return (
-    <div className="w-full h-screen bg-[var(--color-surface-mixed-200)]">
+    <div className="w-full pt-20 h-screen bg-[var(--color-surface-mixed-200)]">
       {questions.length > 0 ? (
-        <div className="w-[800px] mx-auto pt-20">
-          <h2 className="text-[var(--color-primary-400)] p-4 text-2xl flex gap-4 border border-[#deb8ff] rounded-md">
-            <span className="font-medium">Q{currentQuestion + 1}. </span>
-            <span>{questions[currentQuestion].question}</span>
+        <div className="max-w-[800px] p-8 mx-8 md:mx-auto border border-[var(--color-primary-100)] rounded-[50px] shadow-md">
+          <div className="flex justify-between items-center">
+            <div className="text-[var(--color-primary-200)] text-lg">
+              <span className="font-semibold">{currentQuestion + 1}</span> of{' '}
+              <span className="font-semibold">{quiz?.totalQuestions}</span>{' '}
+              questions
+            </div>
+            <Timer minutes={minutes} seconds={seconds} />
+          </div>
+
+          <h2 className="text-white p-4 text-2xl flex gap-4 bg-[var(--color-primary-100)] rounded-lg">
+            <span className="font-medium">Q. </span>
+            <span>{questions[currentQuestion].questionText}</span>
           </h2>
           <div className="flex flex-col gap-4 mt-8 text-[var(--color-primary-400)]">
-            {questions[currentQuestion].options.map((option) => {
+            {questions[currentQuestion].options.map((option, index) => {
               return (
                 <p
                   onClick={() => handleOptionClick(option)}
-                  key={option._id}
-                  className={`cursor-pointer flex items-center gap-6 py-3 px-4 border border-[#deb8ff] rounded-md hover:bg-[var(--color-primary-100)] hover:text-white ${
+                  key={index}
+                  className={`cursor-pointer flex items-center gap-6 py-3 px-4 border border-[#deb8ff] rounded-md hover:bg-[var(--color-primary-200)] hover:text-white ${
                     selectedOption === option.optionNumber
-                      ? 'bg-[var(--color-primary-100)] text-white'
+                      ? 'bg-[var(--color-primary-200)] text-white'
                       : ''
                   }`}
                 >
                   <span className="min-w-[24px] min-h-[24px] flex items-center rounded-sm justify-center border border-[#deb8ff] hover:text-[#deb8ff]">
-                    {option.optionNumber + 1}
+                    {option.optionNumber}
                   </span>
-                  <span className="text-xl font-medium">{option.value}</span>
+                  <span className="text-xl font-medium">
+                    {option.optionText}
+                  </span>
                 </p>
               )
             })}
@@ -127,14 +161,42 @@ const QuizRoomPage = () => {
               type="button"
               className="flex items-center gap-2 text-white bg-[var(--color-primary-200)] font-medium px-10 py-2 rounded-md ml-2"
             >
-              {currentQuestion === quiz!.totalQuestions - 1
-                ? 'Submit'
-                : 'Continue'}
+              {currentQuestion === quiz!.totalQuestions - 1 ? (
+                submissionLoading ? (
+                  <Loading type="spin" color="#fff" width={24} height={24} />
+                ) : (
+                  'Submit'
+                )
+              ) : (
+                'Continue'
+              )}
             </button>
           </div>
         </div>
+      ) : loading || loading === null ? (
+        <div className="pt-40 flex flex-col gap-4 items-center justify-center">
+          <Loading
+            type="spinningBubbles"
+            color="#dd92e4"
+            width={150}
+            height={150}
+          />
+          <p className="font-semibold animate-pulse">
+            Preparing quiz questions for you!
+          </p>
+        </div>
       ) : (
-        <h2>Loading...</h2>
+        <div className="pt-40 flex flex-col gap-4 items-center justify-center">
+          <p className="font-semibold text-xl">
+            Oops, The quiz is not prepared yet!
+          </p>
+          <Link
+            className="bg-[var(--color-primary-500)] shadow-md hover:shadow-none px-6 py-1 rounded-full"
+            href="/quiz/join"
+          >
+            Go back
+          </Link>
+        </div>
       )}
     </div>
   )

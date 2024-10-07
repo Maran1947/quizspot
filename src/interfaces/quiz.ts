@@ -1,33 +1,27 @@
-interface IQuizDetails {
+interface IQuiz {
+  _id: string
   title: string
   topic: string
   totalQuestions: number
   timePerQuestion: number
-}
-
-interface IQuizOption {
-  id: string
-  value: string
-  optionNumber: number
-}
-
-interface IQuizQuestion {
-  questionNumber: number
-  question: string
-  correctOption: string
-  options: IQuizOption[]
-}
-
-interface IQuiz {
   quizType: string
-  quizDetails: IQuizDetails
-  quizQuestions: IQuizQuestion[]
+  roomCode: string
+  createdAt: string
 }
 
-interface ISubmission {
-  quizId: string
-  questionId: string
-  answer: string
+interface IOption {
+  id: string
+  optionText: string
+  optionNumber: string
 }
 
-export type { IQuizDetails, IQuizQuestion, IQuiz, IQuizOption, ISubmission }
+interface IQuestion {
+  _id: string
+  quiz: string
+  questionNumber: number
+  questionText: string
+  correctOption: string
+  options: IOption[]
+}
+
+export type { IQuiz, IQuestion, IOption }

@@ -21,7 +21,7 @@ const SettingsPage = () => {
                 name="currentPassword"
                 id="currentPassword"
                 className="bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                placeholder="***********"
+                placeholder="••••••••"
                 required
               />
             </div>

@@ -4,13 +4,13 @@ import ChooseQuizType from '@/components/quiz/create/chooseQuizType'
 import GenerateQuiz from '../_components/generateQuiz'
 import Stepper from '../_components/stepper'
 import QuizDetails from '../_components/quizDetails'
-import { IQuizDetails } from '@/interfaces/quiz'
 import QuizCreated from '../_components/quizCreated'
+import { IQuizDetailsPayload } from '@/interfaces/payload'
 
 const CreateQuizPage = () => {
   const [generateQuizType, setGenerateQuizType] = useState('')
   const [activeStep, setActiveStep] = useState(0)
-  const [quizDetails, setQuizDetails] = useState<IQuizDetails | null>(null)
+  const [quizDetails, setQuizDetails] = useState<IQuizDetailsPayload | null>(null)
   const [quizRoomCode, setQuizRoomCode] = useState<string | null>(null)
 
   return (

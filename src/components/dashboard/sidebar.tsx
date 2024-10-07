@@ -1,5 +1,5 @@
 'use client'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import React, { ReactNode } from 'react'
 import { IoMdSettings } from 'react-icons/io'
 import { MdDashboard, MdQuiz } from 'react-icons/md'
@@ -8,12 +8,14 @@ const MenuItem = ({
   icon,
   text,
   textClassName,
-  redirectTo
+  redirectTo,
+  pathname
 }: {
   icon: ReactNode
   text: string
   textClassName: string
   redirectTo: string
+  pathname: string
 }) => {
   const router = useRouter()
   const handleRedirect = () => {
@@ -22,7 +24,9 @@ const MenuItem = ({
   return (
     <div
       onClick={handleRedirect}
-      className="flex flex-col gap-2 items-center py-2 mt-2 cursor-pointer"
+      className={`flex flex-col gap-2 items-center py-2 mt-2 cursor-pointer hover:text-[var(--color-primary-300)] ${
+        pathname === redirectTo ? 'text-[var(--color-primary-100)]' : 'text-black'
+      }`}
     >
       {icon}
       <span className={textClassName}>{text}</span>
@@ -31,6 +35,8 @@ const MenuItem = ({
 }
 
 const DashboardSidebar = () => {
+  const pathname = usePathname()
+  console.log(pathname)
   return (
     <div className="w-[120px] h-[92vh] drop-shadow-lg bg-[var(--color-surface-mixed-300)] flex flex-col justify-between py-4 text-black">
       <div className="px-6">
@@ -39,12 +45,14 @@ const DashboardSidebar = () => {
           text="Dashboard"
           textClassName="text-sm"
           icon={<MdDashboard className="text-4xl" />}
+          pathname={pathname}
         />
         <MenuItem
           redirectTo="/dashboard/quiz"
           text="Quiz"
           textClassName="text-sm"
           icon={<MdQuiz className="text-4xl" />}
+          pathname={pathname}
         />
       </div>
       <div className="px-6">
@@ -53,6 +61,7 @@ const DashboardSidebar = () => {
           textClassName={'text-sm'}
           icon={<IoMdSettings className="text-4xl" />}
           redirectTo="/dashboard/settings"
+          pathname={pathname}
         />
       </div>
     </div>

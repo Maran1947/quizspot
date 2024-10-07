@@ -7,19 +7,23 @@ const questionSchema = new mongoose.Schema(
       ref: 'Quiz',
       required: true
     },
-    question: {
+    questionNumber: {
+      type: Number,
+      required: true
+    },
+    questionText: {
       type: String,
       required: true
     },
     correctOption: {
-      type: Number,
+      type: String,
       required: true
     },
     options: [
       {
         id: String,
-        value: String,
-        optionNumber: Number
+        optionText: String,
+        optionNumber: String
       }
     ]
   },

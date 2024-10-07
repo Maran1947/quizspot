@@ -1,32 +1,33 @@
-import { IQuizQuestion } from '@/interfaces/quiz'
+import { IQuizQuestionPayload } from "@/interfaces/payload"
 
-export const generateQuestionsTemplate = (size: number): IQuizQuestion[] => {
+
+export const generateQuestionsTemplate = (size: number): IQuizQuestionPayload[] => {
   const quizQuestions = Array.from({ length: size }).map(
-    (_, index): IQuizQuestion => {
+    (_, index): IQuizQuestionPayload => {
       return {
         questionNumber: index,
-        question: '',
+        questionText: '',
         correctOption: '',
         options: [
           {
             id: `question-${index}-option-a`,
-            optionNumber: 0,
-            value: ''
+            optionNumber: 'A',
+            optionText: ''
           },
           {
             id: `question-${index}-option-b`,
-            optionNumber: 1,
-            value: ''
+            optionNumber: 'B',
+            optionText: ''
           },
           {
             id: `question-${index}-option-c`,
-            optionNumber: 2,
-            value: ''
+            optionNumber: 'C',
+            optionText: ''
           },
           {
             id: `question-${index}-option-d`,
-            optionNumber: 3,
-            value: ''
+            optionNumber: 'D',
+            optionText: ''
           }
         ]
       }

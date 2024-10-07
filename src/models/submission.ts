@@ -1,4 +1,7 @@
 import mongoose from 'mongoose'
+import './quiz'
+import './question'
+import './user'
 
 const submissionSchema = new mongoose.Schema(
   {
@@ -18,7 +21,7 @@ const submissionSchema = new mongoose.Schema(
       required: true
     },
     answer: {
-      type: Number,
+      type: String,
       required: true
     }
   },
