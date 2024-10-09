@@ -23,7 +23,7 @@ const QuizRoomPage = () => {
   const [submissionLoading, setSubmissionLoading] = useState(false)
   const [questionTimer, setQuestionTimer] = useState<Date | null>(null)
 
-  const { seconds, minutes, restart } = useTimer({
+  const { seconds, minutes, restart, pause } = useTimer({
     expiryTimestamp: new Date(),
     onExpire: () => {
       if (quiz?.timePerQuestion) {
@@ -66,6 +66,7 @@ const QuizRoomPage = () => {
       console.log(data)
       const response = await axios.post('/api/quiz/submission', data)
       if (response.status === 200) {
+        pause()
         router.push(`/quiz/result/${quiz!._id}`)
       }
     } catch (error) {

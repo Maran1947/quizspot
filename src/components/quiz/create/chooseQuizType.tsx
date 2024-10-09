@@ -20,7 +20,7 @@ const ChooseQuizType = ({
 
   return (
     <div className="flex items-center justify-center gap-8">
-      <div className="w-80 h-80 flex flex-col items-center justify-center gap-6 border border-gray-300 shadow rounded-md">
+      <div className="w-80 h-80 flex flex-col items-center justify-center gap-6 border border-gray-300 shadow rounded-md bg-[var(--color-surface-mixed-400)]">
         <Image
           src={customQuizGif}
           alt="Custom Quiz Gif"
@@ -35,7 +35,7 @@ const ChooseQuizType = ({
           Custom Quiz
         </button>
       </div>
-      <div className="w-80 h-80 flex flex-col items-center justify-center gap-6 border border-gray-300 shadow rounded-md">
+      <div className="w-80 h-80 flex flex-col items-center justify-center gap-6 border border-gray-300 shadow rounded-md bg-[var(--color-surface-mixed-400)]">
         <Image src={aiQuizGif} alt="AI Quiz Gif" width={120} height={120} />
         <button
           type="button"

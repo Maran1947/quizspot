@@ -4,6 +4,7 @@ import { generateQuestionsTemplate } from '@/utils/questionTemplate'
 import axios from 'axios'
 import { IQuizDetailsPayload, IQuizQuestionPayload } from '@/interfaces/payload'
 import toast from 'react-hot-toast'
+import Loading from '@/components/loading/loading'
 
 interface GenerateQuizProps {
   generateQuizType: string
@@ -22,6 +23,7 @@ const GenerateQuiz = ({
     [key: string]: string
   } | null>(null)
   const [quizQuestions, setQuizQuestions] = useState<IQuizQuestionPayload[]>([])
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -82,6 +84,7 @@ const GenerateQuiz = ({
 
     console.log({ quizQuestionsFormData, quizData })
 
+    setLoading(true)
     try {
       const response = await axios.post('/api/quiz/create', { data: quizData })
       if (response.status === 200) {
@@ -90,6 +93,8 @@ const GenerateQuiz = ({
       }
     } catch (error) {
       console.log('Error occurred in creating quiz: ', error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -142,15 +147,18 @@ const GenerateQuiz = ({
           <button
             onClick={() => setActiveStep(1)}
             type="button"
-            className="text-black text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-black hover:text-white"
+            className="text-black text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-[black] hover:text-white"
           >
             Back
           </button>
           <button
             type="submit"
-            className="text-black text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-black hover:text-white"
+            className="flex items-center justify-center text-black text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-[var(--color-primary-300)] hover:text-white"
           >
-            Create
+            {
+              loading ?
+              <Loading type='spin' color='var(--color-primary-300)' width={24} height={24} /> : 'Create'
+            }
           </button>
         </div>
       </form>

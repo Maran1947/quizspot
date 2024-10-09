@@ -56,7 +56,7 @@ const QuizViewPage = () => {
     <div className="w-full p-8">
       {loading ? (
         <div className="w-full flex items-center justify-center">
-          <Loading type="bars" color="#dd92e4" width={100} height={100} />
+          <Loading type="bubbles" color="#dd92e4" width={100} height={100} />
         </div>
       ) : (
         <div>
@@ -92,7 +92,7 @@ const QuizViewPage = () => {
                 className="bg-[var(--color-surface-mixed-500)] mb-4 shadow-md"
               >
                 <h3 className="mb-3 bg-[var(--color-primary-100)] p-3 rounded-tl-lg rounded-tr-lg text-white">
-                  Q{question.questionNumber + '. ' + question.questionText}
+                  Q{(question.questionNumber+1) + '. ' + question.questionText}
                 </h3>
                 <div className="p-3">
                   {question.options.map((option) => {

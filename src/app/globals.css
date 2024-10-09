@@ -48,3 +48,22 @@ body {
     text-wrap: balance;
   }
 }
+
+.animate_heart {
+  animation: scale_heart 1s infinite;
+}
+
+@keyframes scale_heart {
+  0%, 100% {
+      transform: scale(0.75);  
+  }
+  25% {
+      transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  75% {
+    transform: scale(1);
+  }
+}

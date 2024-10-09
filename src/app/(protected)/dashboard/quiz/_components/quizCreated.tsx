@@ -1,30 +1,43 @@
 'use client'
-import { useRouter } from "next/navigation"
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import CheckMarkImage from '../../../../../assets/images/green_double_circle_check_mark.jpg'
 
 const QuizCreated = ({ quizRoomCode }: { quizRoomCode: string }) => {
-    const router = useRouter()
+  const router = useRouter()
 
-    const handleViewQuiz = () => {
-        router.push(`/dashboard/quiz/${quizRoomCode}/view`)
-      }
-    
-      const handleCopyQuizRoomCode = () => {
-        alert(`Quiz room code: ${quizRoomCode}`)
-      }
+  const handleViewQuiz = () => {
+    router.push(`/dashboard/quiz/${quizRoomCode}/view`)
+  }
+
+  const handleCopyQuizRoomCode = () => {
+    alert(`Quiz room code: ${quizRoomCode}`)
+  }
 
   return (
-    <div className="w-[400px] p-8 border border-gray-300 rounded-lg">
-      <h2 className="text-2xl text-black text-center my-4">✅ Quiz Created</h2>
+    <div className="w-[400px] p-8 bg-[var(--color-primary-500)] border border-[var(--color-primary-100)] rounded-lg">
+      <div className="flex items-center justify-center">
+        <Image
+          className="rounded-full"
+          src={CheckMarkImage}
+          width={80}
+          height={80}
+          alt="check mark icon image"
+        />
+      </div>
+      <h2 className="text-2xl text-[#fff] font-semibold text-center my-4">
+        Your quiz is ready to share!
+      </h2>
       <div className="flex items-center justify-between">
         <button
-          className="text-black text-md outline-none border border-gray-300 w-28 py-1 px-2 shadow hover:bg-black hover:text-white"
+          className="text-white font-semibold text-md outline-none border-2 border-gray-300 w-28 py-1 px-2 shadow hover:bg-black hover:text-white"
           onClick={handleViewQuiz}
           type="button"
         >
           View Quiz
         </button>
         <button
-          className="text-black text-md outline-none border border-gray-300 w-28 py-1 px-2 shadow hover:bg-black hover:text-white"
+          className="text-white font-semibold text-md outline-none border-2 border-gray-300 w-28 py-1 px-2 shadow hover:bg-black hover:text-white"
           onClick={handleCopyQuizRoomCode}
           type="button"
         >
