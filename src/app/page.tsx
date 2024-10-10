@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="w-full bg-gradient-to-t from-[var(--color-primary-300)] to-[var(--color-primary-100)]">
       <header className="flex items-center justify-around px-8 py-3">
-        <h1 className="text-white font-bold text-2xl">QuizSpot.ai</h1>
+        <h1 className="text-white font-bold text-2xl border-x-4 rounded-lg px-2">QuizSpot.ai</h1>
         <div className="rounded-full py-2 px-5  gap-8 bg-white">
           <ul className="flex items-center gap-4 text-black">
             <li>Features</li>
@@ -21,6 +21,7 @@ export default function Home() {
           <Link
             className="text-white border border-white px-6 py-1 rounded-full hover:shadow-[0px_0px_15px_0px_#fff]"
             href="/signin"
+            shallow={true}
           >
             Log in
           </Link>
