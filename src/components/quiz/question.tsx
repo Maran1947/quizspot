@@ -3,9 +3,10 @@ import React from 'react'
 
 interface QuestionCardProps {
     question: IQuestion
+    userAnswer?: string
 }
 
-const QuestionCard = ({ question }: QuestionCardProps) => {
+const QuestionCard = ({ question, userAnswer }: QuestionCardProps) => {
   return (
     <div
       key={question._id}
@@ -17,12 +18,12 @@ const QuestionCard = ({ question }: QuestionCardProps) => {
       <div className="p-3">
         {question.options.map((option) => {
           return (
-            <div key={option.id} className="flex items-center gap-2 mb-2">
+            <div key={option._id} className="flex items-center gap-2 mb-2">
               <span
                 className={`flex items-center justify-center min-w-[24px] h-[24px] border border-gray-400 ${
                   question.correctOption === option.optionNumber
                     ? 'border-green-400 bg-green-200'
-                    : 'border-gray-400'
+                    : userAnswer === option.optionNumber ? 'border-red-400 bg-red-200' : 'border-gray-400'
                 }`}
               >
                 {option.optionNumber}
@@ -31,7 +32,7 @@ const QuestionCard = ({ question }: QuestionCardProps) => {
                 className={
                   question.correctOption === option.optionNumber
                     ? 'bg-green-200'
-                    : ''
+                    : userAnswer === option.optionNumber ? 'bg-red-200' :  '' 
                 }
               >
                 {option.optionText}

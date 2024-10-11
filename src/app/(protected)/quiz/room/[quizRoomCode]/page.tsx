@@ -57,6 +57,7 @@ const QuizRoomPage = () => {
 
   const handleSubmit = async () => {
     setSubmissionLoading(true)
+    pause()
     try {
       console.log({ answers })
       const data = {
@@ -66,8 +67,7 @@ const QuizRoomPage = () => {
       console.log(data)
       const response = await axios.post('/api/quiz/submission', data)
       if (response.status === 200) {
-        pause()
-        router.push(`/quiz/result/${quiz!._id}`)
+        router.push(`/quiz/result/${response.data.attemptId}`)
       }
     } catch (error) {
       console.log(error)

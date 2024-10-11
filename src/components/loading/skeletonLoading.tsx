@@ -1,8 +1,12 @@
 import React from 'react'
 
-const SkeletonLoading = () => {
+interface SkeletonLoadingProps {
+  width?: string
+}
+
+const SkeletonLoading = ({ width = 'max-w-sm' }: SkeletonLoadingProps) => {
   return (
-    <div role="status" className="max-w-sm px-4 py-6 animate-pulse shadow-[0px_1px_10px_0px_#0000001a] bg-[var(--color-surface-mixed-200)] rounded-[15px]">
+    <div role="status" className={`${width} px-4 py-6 animate-pulse shadow-[0px_1px_10px_0px_#0000001a] bg-[var(--color-surface-mixed-200)] rounded-[15px]`}>
       <div className="h-8 bg-gray-300 rounded-md max-w-48 mb-4"></div>
       <div className="h-4 bg-gray-300 rounded-md max-w-[360px] mb-2"></div>
       <div className="h-4 bg-gray-300 rounded-md max-w-[360px] mb-2"></div>

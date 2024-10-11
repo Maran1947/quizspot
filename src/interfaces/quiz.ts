@@ -10,7 +10,7 @@ interface IQuiz {
 }
 
 interface IOption {
-  id: string
+  _id: string
   optionText: string
   optionNumber: string
 }
@@ -24,4 +24,19 @@ interface IQuestion {
   options: IOption[]
 }
 
-export type { IQuiz, IQuestion, IOption }
+interface ISubmission {
+  _id: string
+  attemptId: string
+  quizId: IQuiz,
+  questionId: IQuestion
+  answer: string
+}
+
+interface IQuizResult {
+  accuracy: number
+  score: number
+  totalScore: number
+  totalCorrectAnswers: number
+}
+
+export type { IQuiz, IQuestion, IOption, IQuizResult, ISubmission }
