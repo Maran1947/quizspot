@@ -2,20 +2,26 @@ import mongoose from 'mongoose'
 import './quiz'
 import './question'
 import './user'
+import './attempt'
 
 const submissionSchema = new mongoose.Schema(
   {
-    user: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true
     },
-    quiz: {
+    attemptId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Attempt',
+      required: true
+    },
+    quizId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Quiz',
       required: true
     },
-    question: {
+    questionId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Question',
       required: true

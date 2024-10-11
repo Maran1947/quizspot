@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       topic: quizDetails.topic,
       totalQuestions: quizDetails.totalQuestions,
       timePerQuestion: quizDetails.timePerQuestion,
-      user: user._id,
+      userId: user._id,
       roomCode: nanoid(10)
     })
 
@@ -31,9 +31,8 @@ export async function POST(req: Request) {
 
     const newQuizQuestions = quizQuestions.map(
       (quizQuestion: IQuizQuestionPayload) => {
-        console.log(quizQuestion)
         const newQuestion = new Question({
-          quiz: newQuiz._id,
+          quizId: newQuiz._id,
           questionText: quizQuestion.questionText,
           questionNumber: quizQuestion.questionNumber,
           correctOption: quizQuestion.correctOption,
@@ -54,7 +53,7 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         success: false,
-        message: 'Internal server error'
+        message: 'Something went wrong'
       },
       { status: 500 }
     )

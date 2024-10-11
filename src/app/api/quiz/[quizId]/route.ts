@@ -14,7 +14,7 @@ export async function GET(
     if (!quiz) {
       return NextResponse.json({ success: false, message: 'Quiz not found' }, { status: 404 })
     }
-    const questions = await Question.find({ quiz: quiz._id })
+    const questions = await Question.find({ quizId: quiz._id })
     return NextResponse.json({ success: true, quiz, questions }, { status: 200 })
   } catch (error) {
     console.log('Error occurred in get quiz: ', error)

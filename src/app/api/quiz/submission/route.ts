@@ -1,5 +1,6 @@
 import { auth } from '@/auth'
 import { connectDB } from '@/db/connect'
+import { Attempt } from '@/models/attempt'
 import { Submission } from '@/models/submission'
 import { User } from '@/models/user'
 import { NextResponse } from 'next/server'
@@ -21,13 +22,21 @@ export async function POST(req: Request) {
     await connectDB()
     const user = await User.findOne({ email: session?.user?.email })
 
+    const attempt = new Attempt({
+      userId: user._id,
+      quizId: quizId
+    })
+
+    await attempt.save()
+
     const newSubmissions = []
 
     for (const questionId in answers) {
       newSubmissions.push({
-        user: user._id,
-        quiz: quizId,
-        question: questionId,
+        userId: user._id,
+        quizId,
+        questionId,
+        attemptId: attempt._id,
         answer: answers[questionId].optionNumber
       })
     }
@@ -35,7 +44,7 @@ export async function POST(req: Request) {
     await Submission.insertMany(newSubmissions)
 
     return NextResponse.json(
-      { success: true, message: 'User quiz submission saved successfully' },
+      { success: true, attemptId: attempt._id },
       { status: 200 }
     )
   } catch (error) {

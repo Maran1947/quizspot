@@ -46,9 +46,10 @@ const responseSchema: ResponseSchema = {
             }
           }
         }
-      }
-    }
-  }
+      },
+    },
+    required: ['questionNumber','questionText','correctOption','options']
+  },
 }
 
 const model = genAI.getGenerativeModel({
