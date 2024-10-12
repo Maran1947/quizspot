@@ -59,7 +59,7 @@ const QuizPage = () => {
                   title: string
                   topic: string
                   createdAt: string
-                  _id: string
+                  id: string
                   totalQuestions: number
                 },
                 index
