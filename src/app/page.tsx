@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Footer from '@/components/footer/footer'
 import Image from 'next/image'
+import dashboardScreenshot from '../assets/images/dashboard_quiz_ui.png'
 
 export default function Home() {
   return (
@@ -74,7 +75,7 @@ export default function Home() {
               width={1200}
               height={1200}
               className="w-full h-auto"
-              src="/images/dashboard_quiz_ui.png"
+              src={dashboardScreenshot}
               alt="codesocket editor screenshot"
             />
           </motion.div>
