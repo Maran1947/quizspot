@@ -14,9 +14,6 @@ export const signupHandler = async (formData: FormData) => {
     })
 
     if (!validatedFields.success) {
-      console.log({
-        errors: validatedFields.error.flatten().fieldErrors
-      })
       return { errors: validatedFields.error.flatten().fieldErrors }
     }
 

@@ -11,10 +11,7 @@ export const signinHandler = async (formData: FormData) => {
   })
 
   if (!validatedFields.success) {
-    console.log({
-      errors: validatedFields.error.flatten().fieldErrors
-    })
-    return
+    return { errors: validatedFields.error.flatten().fieldErrors }
   }
 
   const { email, password } = validatedFields.data
@@ -32,11 +29,11 @@ export const signinHandler = async (formData: FormData) => {
       const { type, cause } = error as AuthError
       switch (type) {
         case 'CredentialsSignin':
-          return 'Invalid credentials.'
+          return { error: 'Invalid credentials' }
         case 'CallbackRouteError':
-          return cause?.err?.toString()
+          return { error: cause?.err?.toString() }
         default:
-          return 'Something went wrong.'
+          return { error: 'Something went wrong' }
       }
     }
   } finally {
