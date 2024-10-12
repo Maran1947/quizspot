@@ -4,9 +4,10 @@ import SkeletonLoading from '@/components/loading/skeletonLoading'
 import { IDashboardDetails } from '@/interfaces/dashboardDetails'
 import { ApexOptions } from 'apexcharts'
 import axios from 'axios'
+import dynamic from 'next/dynamic'
 import React, { useEffect, useState } from 'react'
-import Chart from 'react-apexcharts'
 import toast from 'react-hot-toast'
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const DashboardPage = () => {
   const [dashboardDetails, setDashboardDetails] = useState<IDashboardDetails>({
@@ -165,7 +166,7 @@ const DashboardPage = () => {
         <div className="mt-8 flex flex-col md:flex-row gap-6">
           <div className="w-full md:w-[60%] rounded-xl bg-[#f9eeff] p-5 shadow-sm">
             {
-              chartData ?
+              chartData && (typeof window !== 'undefined') ?
               <Chart
               options={chartData.options}
               series={chartData.series}
