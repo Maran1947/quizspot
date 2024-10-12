@@ -1,12 +1,14 @@
 import NextAuth, { CredentialsSignin } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { User } from './models/user'
 import bcrypt from 'bcryptjs'
 import { LoginFormSchema } from './lib/definitions'
-import { connectDB } from './db/connect'
-
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import { prisma } from './prismaClient'
+ 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  adapter: PrismaAdapter(prisma),
+  session: { strategy: "jwt" },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -29,8 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (validatedFields.success) {
           const { email, password } = credentials
-          await connectDB()
-          const user = await User.findOne({ email })
+          const user = await prisma.user.findFirst({ where: { email: email as string } })
 
           if (!user || !user.password) {
             throw new CredentialsSignin('Invalid email/password!')
@@ -47,7 +48,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           }
         }
 
-        return
+        return null
       }
     })
   ]

@@ -1,13 +1,10 @@
 'use server'
 import { signIn } from '@/auth'
-import { connectDB } from '@/db/connect'
 import { SignupFormSchema } from '@/lib/definitions'
-import { User } from '@/models/user'
+import { prisma } from '@/prismaClient'
 import bcrypt from 'bcryptjs'
-import { redirect } from 'next/navigation'
 
 export const signupHandler = async (formData: FormData) => {
-  let redirectPath: string | null = null
   try {
     const validatedFields = SignupFormSchema.safeParse({
       name: formData.get('name'),
@@ -25,9 +22,7 @@ export const signupHandler = async (formData: FormData) => {
 
     const { name, username, email, password } = validatedFields.data
 
-    await connectDB()
-
-    const isUserExists = await User.findOne({ email })
+    const isUserExists = await prisma.user.findFirst({ where: { email } })
 
     if (isUserExists) {
       return { error: 'User already exists!' }
@@ -36,14 +31,14 @@ export const signupHandler = async (formData: FormData) => {
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
 
-    const user = new User({
-      name,
-      username,
-      email,
-      password: hashedPassword
+    await prisma.user.create({
+      data: {
+        name,
+        username,
+        email,
+        password: hashedPassword
+      }
     })
-
-    await user.save()
 
     await signIn('credentials', {
       email,
@@ -51,13 +46,9 @@ export const signupHandler = async (formData: FormData) => {
       redirect: false
     })
 
-    redirectPath = '/dashboard'
+    return { redirectPath: '/dashboard' }
   } catch (error) {
     console.log(error)
     return { error: 'Something went wrong!'}
-  } finally {
-    if (redirectPath) {
-      redirect(redirectPath)
-    }
   }
 }

@@ -63,7 +63,7 @@ const QuizResultPage = () => {
               {submissions.map((submission, index) => (
                 <QuestionCard
                   key={index}
-                  question={submission.questionId}
+                  question={submission.question}
                   userAnswer={submission.answer}
                 />
               ))}

@@ -37,7 +37,7 @@ const QuizRoomPage = () => {
     setAnswers((prevAnswer) => {
       return {
         ...prevAnswer,
-        [questions[currentQuestion]._id]: option
+        [questions[currentQuestion].id]: option
       }
     })
   }

@@ -1,7 +1,5 @@
 import { auth } from '@/auth'
-import { connectDB } from '@/db/connect'
-import { Attempt } from '@/models/attempt'
-import { User } from '@/models/user'
+import { prisma } from '@/prismaClient'
 import { NextResponse } from 'next/server'
 
 const formatDate = (date: Date) => {
@@ -12,38 +10,38 @@ const formatDate = (date: Date) => {
 export async function GET() {
   try {
     const session = await auth()
-    await connectDB()
-    const user = await User.findOne({ email: session?.user?.email })
+    const user = await prisma.user.findUnique({ where: { email: session?.user?.email as string } })
+
+    if (!user) {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
 
     const today = new Date()
     const sevenDaysAgo = new Date()
     sevenDaysAgo.setDate(today.getDate() - 7)
 
-    const last7DaysData = await Attempt.aggregate([
-      {
-        $match: {
-          userId: user._id,
-          createdAt: {
-            $gte: sevenDaysAgo,
-            $lt: today
-          }
+    const last7DaysData = await prisma.attempt.findMany({
+      where: {
+        userId: user.id,
+        createdAt: {
+          gte: sevenDaysAgo,
+          lt: today
         }
-      },
-      {
-        $group: {
-          _id: {
-            $dateToString: { format: '%Y-%m-%d', date: '$createdAt' }
-          },
-          totalQuestionsAnswered: { $sum: '$result.totalQuestionsAnswered' }
-        }
-      },
-      {
-        $sort: { _id: 1 }
       }
-    ])
+    })
 
-    const resultMap = last7DaysData.reduce((map, item) => {
-      map[item._id] = item.totalQuestionsAnswered
+    const resultMap = last7DaysData.reduce((map: { [key: string]: number }, attempt) => {
+      const createdAtDate = new Date(attempt.createdAt).toISOString().split('T')[0] // Get YYYY-MM-DD
+      const totalQuestionsAnswered = (attempt.result as { totalQuestionsAnswered: number }).totalQuestionsAnswered || 0
+
+      if (!map[createdAtDate]) {
+        map[createdAtDate] = totalQuestionsAnswered
+      } else {
+        map[createdAtDate] += totalQuestionsAnswered
+      }
       return map
     }, {})
 

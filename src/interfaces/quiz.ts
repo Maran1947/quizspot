@@ -1,5 +1,5 @@
 interface IQuiz {
-  _id: string
+  id: string
   title: string
   topic: string
   totalQuestions: number
@@ -10,13 +10,13 @@ interface IQuiz {
 }
 
 interface IOption {
-  _id: string
+  id: string
   optionText: string
   optionNumber: string
 }
 
 interface IQuestion {
-  _id: string
+  id: string
   quiz: string
   questionNumber: number
   questionText: string
@@ -25,11 +25,12 @@ interface IQuestion {
 }
 
 interface ISubmission {
-  _id: string
+  id: string
   attemptId: string
   quizId: IQuiz,
   questionId: IQuestion
   answer: string
+  question: IQuestion
 }
 
 interface IQuizResult {

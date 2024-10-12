@@ -1,8 +1,5 @@
 import { auth } from '@/auth'
-import { connectDB } from '@/db/connect'
-import { Attempt } from '@/models/attempt'
-import { Submission } from '@/models/submission'
-import { User } from '@/models/user'
+import { prisma } from '@/prismaClient'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
@@ -12,19 +9,35 @@ export async function GET(
   const { attemptId } = params
   try {
     const session = await auth()
-    await connectDB()
-    const user = await User.findOne({ email: session?.user?.email })
-
-    const submissions = await Submission.find({
-      attemptId,
-      userId: user._id
+    const user = await prisma.user.findUnique({
+      where: { email: session?.user?.email as string }
     })
-      .populate(['questionId', 'quizId'])
-      .exec()
 
-    const attempt = await Attempt.findById(attemptId)
+    if (!user) {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
 
-    if (attempt.result.score) {
+    const submissions = await prisma.submission.findMany({
+      where: {
+        attemptId: attemptId,
+        userId: user.id
+      },
+      include: {
+        question: true, // Automatically fetches related Question
+        quiz: true // Automatically fetches related Quiz
+      }
+    })
+
+    const attempt = await prisma.attempt.findUnique({
+      where: {
+        id: attemptId
+      }
+    })
+
+    if (attempt?.result) {
       return NextResponse.json(
         {
           success: true,
@@ -37,15 +50,15 @@ export async function GET(
 
     let totalCorrectAnswers = 0
     for (const submission of submissions) {
-      if (submission.answer === submission.questionId.correctOption) {
+      if (submission.answer === submission.question.correctOption) {
         totalCorrectAnswers += 1
       }
     }
 
     const accuracy =
-      (totalCorrectAnswers / submissions[0].quizId.totalQuestions) * 100
+      (totalCorrectAnswers / submissions[0].quiz.totalQuestions) * 100
     const score = totalCorrectAnswers * 10
-    const totalScore = submissions[0].quizId.totalQuestions * 10
+    const totalScore = submissions[0].quiz.totalQuestions * 10
 
     const result = {
       accuracy,
@@ -55,7 +68,14 @@ export async function GET(
       totalQuestionsAnswered: submissions.length
     }
 
-    await Attempt.findByIdAndUpdate(attemptId, { result })
+    await prisma.attempt.update({
+      where: {
+        id: attemptId
+      },
+      data: {
+        result: result
+      }
+    })
 
     return NextResponse.json(
       {

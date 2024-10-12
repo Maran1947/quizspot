@@ -1,8 +1,5 @@
 import { auth } from '@/auth'
-import { connectDB } from '@/db/connect'
-import { Attempt } from '@/models/attempt'
-import { Submission } from '@/models/submission'
-import { User } from '@/models/user'
+import { prisma } from '@/prismaClient'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
@@ -14,37 +11,43 @@ export async function POST(req: Request) {
     }: {
       quizId: string
       answers: {
-        [key: string]: { id: string; optionNumber: number; optionText: string }
+        [key: string]: { id: string; optionNumber: string; optionText: string }
       }
     } = data
 
     const session = await auth()
-    await connectDB()
-    const user = await User.findOne({ email: session?.user?.email })
-
-    const attempt = new Attempt({
-      userId: user._id,
-      quizId: quizId
+    const user = await prisma.user.findUnique({
+      where: { email: session?.user?.email as string }
     })
 
-    await attempt.save()
+    if (!user) {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+
+    const attempt = await prisma.attempt.create({ data: {
+        userId: user.id,
+        quizId
+    }})
 
     const newSubmissions = []
 
     for (const questionId in answers) {
       newSubmissions.push({
-        userId: user._id,
+        userId: user.id,
         quizId,
         questionId,
-        attemptId: attempt._id,
+        attemptId: attempt.id,
         answer: answers[questionId].optionNumber
       })
     }
 
-    await Submission.insertMany(newSubmissions)
+    await prisma.submission.createMany({ data: newSubmissions })
 
     return NextResponse.json(
-      { success: true, attemptId: attempt._id },
+      { success: true, attemptId: attempt.id },
       { status: 200 }
     )
   } catch (error) {

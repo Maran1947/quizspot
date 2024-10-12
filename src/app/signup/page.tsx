@@ -1,5 +1,7 @@
 'use client'
 import { signupHandler } from '@/actions/signup'
+import Loading from '@/components/loading/loading'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -16,6 +18,9 @@ const SignupPage = () => {
     email?: string
     username?: string
   } | null>(null)
+  const [loading, setLoading] = useState(false)
+
+  const router = useRouter()
 
   const handleSignupFormAction = async (formData: FormData) => {
     if (formData.get('password') !== formData.get('confirmPassword')) {
@@ -24,20 +29,31 @@ const SignupPage = () => {
       })
       return
     }
-    const error = await signupHandler(formData)
-    console.log(error)
-    if (error?.errors) {
-      setErrors({
-        name: error.errors.name?.join(' - ') || '',
-        password: error.errors.password?.join(' - ') || '',
-        email: error.errors.email?.join(' - ') || '',
-        username: error.errors.username?.join(' - ') || ''
-      })
-      return
-    }
-
-    if (error?.error) {
-      toast.error(error.error)
+    setLoading(true)
+    try {
+      const response = await signupHandler(formData)
+      if (response.redirectPath) {
+        router.replace('/dashboard')
+      }
+      console.log(response)
+      if (response?.errors) {
+        setErrors({
+          name: response.errors.name?.join(' - ') || '',
+          password: response.errors.password?.join(' - ') || '',
+          email: response.errors.email?.join(' - ') || '',
+          username: response.errors.username?.join(' - ') || ''
+        })
+        return
+      }
+  
+      if (response?.error) {
+        toast.error(response.error)
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error('Something went wrong')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -173,9 +189,13 @@ const SignupPage = () => {
               </div> */}
               <button
                 type="submit"
-                className="w-full text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-200)] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                disabled={loading}
+                className="flex items-center justify-center w-full text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-200)] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
-                Sign up
+                {
+                  loading ?
+                  <Loading type='spin' color='white' width={24} height={24} /> : 'Sign up'
+                }
               </button>
               <p className="text-sm font-light text-gray-600">
                 Already have an account?{' '}

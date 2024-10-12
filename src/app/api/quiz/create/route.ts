@@ -1,11 +1,8 @@
 import { auth } from '@/auth'
-import { connectDB } from '@/db/connect'
-import { Question } from '@/models/question'
-import { Quiz } from '@/models/quiz'
-import { User } from '@/models/user'
 import { NextResponse } from 'next/server'
 import { nanoid } from 'nanoid'
 import { IQuizQuestionPayload } from '@/interfaces/payload'
+import { prisma } from '@/prismaClient'
 
 export async function POST(req: Request) {
   try {
@@ -14,38 +11,40 @@ export async function POST(req: Request) {
     } = await req.json()
 
     const session = await auth()
-    await connectDB()
-    const user = await User.findOne({ email: session?.user?.email })
+    const user = await prisma.user.findUnique({ where: { email: session?.user?.email as string } })
 
-    const newQuiz = new Quiz({
-      quizType,
-      title: quizDetails.title,
-      topic: quizDetails.topic,
-      totalQuestions: quizDetails.totalQuestions,
-      timePerQuestion: quizDetails.timePerQuestion,
-      userId: user._id,
-      roomCode: nanoid(10)
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const newQuiz = await prisma.quiz.create({
+      data: {
+        quizType,
+        title: quizDetails.title,
+        topic: quizDetails.topic,
+        totalQuestions: quizDetails.totalQuestions,
+        timePerQuestion: quizDetails.timePerQuestion,
+        userId: user.id,
+        roomCode: nanoid(10)
+      }
     })
-
-    await newQuiz.save()
 
     const newQuizQuestions = quizQuestions.map(
       (quizQuestion: IQuizQuestionPayload) => {
-        const newQuestion = new Question({
-          quizId: newQuiz._id,
+        return {
+          quizId: newQuiz.id,
           questionText: quizQuestion.questionText,
           questionNumber: quizQuestion.questionNumber,
           correctOption: quizQuestion.correctOption,
           options: quizQuestion.options
-        })
-        return newQuestion
+        }
       }
     )
 
-    await Question.insertMany(newQuizQuestions)
+    await prisma.question.createMany({ data: newQuizQuestions })
 
     return NextResponse.json(
-      { success: true, quizId: newQuiz._id },
+      { success: true, quizId: newQuiz.id },
       { status: 200 }
     )
   } catch (error) {

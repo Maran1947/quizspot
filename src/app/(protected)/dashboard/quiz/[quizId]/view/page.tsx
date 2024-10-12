@@ -23,7 +23,7 @@ const QuizViewPage = () => {
 
   const handleDeleteQuiz = async () => {
     try {
-      const response = await axios.delete(`/api/quiz/${quiz!._id}`)
+      const response = await axios.delete(`/api/quiz/${quiz!.id}`)
       if (response.status === 200) {
         toast.success('Quiz deleted successfully!')
         router.replace('/dashboard/quiz')
@@ -81,9 +81,9 @@ const QuizViewPage = () => {
             </h2>
             <div className="flex items-center">
               <p className="text-sm sm:text-md py-1 px-2 sm:py-2 sm:px-4 font-medium text-[var(--color-primary-100)] rounded-tl-md rounded-bl-md border border-r-none border-[var(--color-primary-100)]">
-                {quiz._id}
+                {quiz.id}
               </p>
-              <CopyToClipboard text={quiz._id} onCopy={handleOnCopy}>
+              <CopyToClipboard text={quiz.id} onCopy={handleOnCopy}>
                 <div className="bg-[var(--color-primary-100)] px-2 py-2 rounded-tr-md rounded-br-md border border-[var(--color-primary-100)]">
                   <MdCopyAll className="cursor-pointer text-md sm:text-2xl text-white" />
                 </div>
@@ -93,7 +93,7 @@ const QuizViewPage = () => {
           {questions.map((question) => {
             return (
               <div
-                key={question._id}
+                key={question.id}
                 className="bg-[var(--color-surface-mixed-500)] mb-4 shadow-md"
               >
                 <h3 className="mb-3 bg-[var(--color-primary-100)] p-3 rounded-tl-lg rounded-tr-lg text-white">
@@ -103,7 +103,7 @@ const QuizViewPage = () => {
                   {question.options.map((option) => {
                     return (
                       <div
-                        key={option._id}
+                        key={option.id}
                         className="flex items-center gap-2 mb-2"
                       >
                         <span

@@ -7,7 +7,7 @@ import { MdDelete } from 'react-icons/md'
 
 interface QuizCardProps {
   quiz: {
-    _id: string
+    id: string
     title: string
     topic: string
     totalQuestions: number
@@ -19,7 +19,7 @@ interface QuizCardProps {
 const QuizCard = ({ quiz, setRefresh }: QuizCardProps) => {
   const handleDeleteQuiz = async () => {
     try {
-      const response = await axios.delete(`/api/quiz/${quiz._id}`)
+      const response = await axios.delete(`/api/quiz/${quiz.id}`)
       if (response.status === 200) {
         setRefresh(true)
         toast.success('Quiz deleted successfully!')
@@ -55,7 +55,7 @@ const QuizCard = ({ quiz, setRefresh }: QuizCardProps) => {
           />
         </div>
         <Link
-          href={`/dashboard/quiz/${quiz._id}/view`}
+          href={`/dashboard/quiz/${quiz.id}/view`}
           className="text-lg text-[var(--color-primary-200)] hover:text-[var(--color-primary-400)]"
         >
           <FaEye />

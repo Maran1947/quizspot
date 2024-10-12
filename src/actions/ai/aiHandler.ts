@@ -14,7 +14,7 @@ const responseSchema: ResponseSchema = {
     type: SchemaType.OBJECT,
     properties: {
       questionNumber: {
-        type: SchemaType.STRING,
+        type: SchemaType.INTEGER,
         description: 'Questions number',
         nullable: false
       },

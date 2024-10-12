@@ -1,6 +1,4 @@
-import { connectDB } from '@/db/connect'
-import { Question } from '@/models/question'
-import { Quiz } from '@/models/quiz'
+import { prisma } from '@/prismaClient'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
@@ -9,12 +7,11 @@ export async function GET(
 ) {
   const { quizId } = params
   try {
-    await connectDB()
-    const quiz = await Quiz.findById(quizId)
+    const quiz = await prisma.quiz.findUnique({ where: { id: quizId } })
     if (!quiz) {
       return NextResponse.json({ success: false, message: 'Quiz not found' }, { status: 404 })
     }
-    const questions = await Question.find({ quizId: quiz._id })
+    const questions = await prisma.question.findMany({ where: { quizId } })
     return NextResponse.json({ success: true, quiz, questions }, { status: 200 })
   } catch (error) {
     console.log('Error occurred in get quiz: ', error)
@@ -31,8 +28,7 @@ export async function DELETE(
 ) {
   const { quizId } = params
   try {
-    await connectDB()
-    await Quiz.findByIdAndDelete(quizId)
+    await prisma.quiz.delete({ where: { id: quizId } })
     return NextResponse.json({ success: true, message: 'Quiz deleted successfully' }, { status: 200 })
   } catch (error) {
     console.log('Error occurred in get quiz: ', error)

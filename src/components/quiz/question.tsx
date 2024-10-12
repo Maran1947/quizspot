@@ -7,9 +7,10 @@ interface QuestionCardProps {
 }
 
 const QuestionCard = ({ question, userAnswer }: QuestionCardProps) => {
+  console.log({ question })
   return (
     <div
-      key={question._id}
+      key={question.id}
       className="bg-[var(--color-surface-mixed-500)] mb-4 shadow-md rounded-tl-lg rounded-tr-lg"
     >
       <h3 className="mb-3 bg-[var(--color-primary-100)] p-3 rounded-tl-lg rounded-tr-lg text-white">
@@ -18,7 +19,7 @@ const QuestionCard = ({ question, userAnswer }: QuestionCardProps) => {
       <div className="p-3">
         {question.options.map((option) => {
           return (
-            <div key={option._id} className="flex items-center gap-2 mb-2">
+            <div key={option.id} className="flex items-center gap-2 mb-2">
               <span
                 className={`flex items-center justify-center min-w-[24px] h-[24px] border border-gray-400 ${
                   question.correctOption === option.optionNumber
