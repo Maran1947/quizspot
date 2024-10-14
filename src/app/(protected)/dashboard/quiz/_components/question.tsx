@@ -12,7 +12,7 @@ interface QuestionProps {
 
 const Question = ({ question, questionIndex, handleChange }: QuestionProps) => {
   return (
-    <div className="border border-gray-300 rounded-md p-6 mb-4">
+    <div className="border-t-2 border-[var(--color-primary-600)] shadow rounded-md bg-[var(--color-surface-mixed-400)] p-6 mb-4">
       <div className="mb-4">
         <label
           className="block text-gray-500 text-sm font-bold mb-2"

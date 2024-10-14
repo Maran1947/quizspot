@@ -33,7 +33,9 @@ const DashboardPage = () => {
           totalQuestionsAnswered: number
         }[] = response.data.last7Days
         const dateData = last7Days.map((data) => data.date)
-        const questionsAnsweredPerDayData = last7Days.map((data) => data.totalQuestionsAnswered)
+        const questionsAnsweredPerDayData = last7Days.map(
+          (data) => data.totalQuestionsAnswered
+        )
 
         setChartData({
           options: {
@@ -55,7 +57,9 @@ const DashboardPage = () => {
             xaxis: {
               categories: dateData,
               title: {
-                text:  `Date (${last7Days[0].fullDate} - ${last7Days[last7Days.length - 1].fullDate})`,
+                text: `Date (${last7Days[0].fullDate} - ${
+                  last7Days[last7Days.length - 1].fullDate
+                })`,
                 style: {
                   fontSize: '14px',
                   fontWeight: 'bold'
@@ -88,7 +92,6 @@ const DashboardPage = () => {
           ]
         })
       }
-
     } catch (error) {
       console.log(error)
       toast.error('Something went wrong!')
@@ -129,9 +132,7 @@ const DashboardPage = () => {
         <h2 className="text-2xl text-black font-semibold mb-4">Dashboard</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {loading ? (
-            [1, 2, 3, 4].map((index) => (
-              <SkeletonLoading key={index} />
-            ))
+            [1, 2, 3, 4].map((index) => <SkeletonLoading key={index} />)
           ) : (
             <>
               <div className="h-[150px] rounded-xl shadow-sm flex flex-col items-center justify-center bg-[#cdc3ff]">
@@ -165,26 +166,38 @@ const DashboardPage = () => {
         </div>
         <div className="mt-8 flex flex-col md:flex-row gap-6">
           <div className="w-full md:w-[60%] rounded-xl bg-[#f9eeff] p-5 shadow-sm">
-            {
-              chartData && (typeof window !== 'undefined') ?
+            {chartData && typeof window !== 'undefined' ? (
               <Chart
-              options={chartData.options}
-              series={chartData.series}
-              type="line"
-              width='100%'
-              height={320}
-            /> : <Loading type='bubbles' color='#b390e3' width={100} height={100} />
-            }
+                options={chartData.options}
+                series={chartData.series}
+                type="line"
+                width="100%"
+                height={320}
+              />
+            ) : (
+              <Loading
+                type="bubbles"
+                color="#b390e3"
+                width={100}
+                height={100}
+              />
+            )}
           </div>
-          <div className="w-full md:w-[40%] rounded-xl bg-[#f9eeff] p-6 shadow-sm">
-            <h3 className="text-black font-semibold text-xl">
-              Recent Activities
-            </h3>
-            <div className="mt-5">
-              <div className="flex items-center gap-2">
-                <span className="inline-block w-3 h-3 rounded-full bg-[var(--color-primary-100)]"></span>
-                <p>Attended Quiz: The Web Series of Web3</p>
+          <div className="w-full md:w-[40%] flex flex-col gap-2">
+            <div className="bg-[#f9eeff] shadow-sm rounded-xl p-6 h-full">
+              <h3 className="text-black font-semibold text-xl">
+                Recent Activities
+              </h3>
+              <div className="mt-5">
+                <div className="flex items-center gap-2">
+                  <span className="inline-block w-3 h-3 rounded-full bg-[var(--color-primary-100)]"></span>
+                  <p>Attended Quiz: The Web Series of Web3</p>
+                </div>
               </div>
+            </div>
+            <div className="bg-[#f9eeff] shadow-sm rounded-xl p-6">
+              <h3 className="text-black font-semibold text-xl">Jackpot Quiz</h3>
+              <h2 className='text-purple-600'>Win big! Coming soon!</h2>
             </div>
           </div>
         </div>

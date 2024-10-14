@@ -13,9 +13,9 @@ export default function Home() {
         <h1 className="text-white font-bold text-2xl border-x-4 rounded-lg px-2">QuizSpot.ai</h1>
         <div className="rounded-full py-2 px-5  gap-8 bg-white">
           <ul className="flex items-center gap-4 text-black">
-            <li>Features</li>
-            <li>About</li>
-            <li>Contact</li>
+            <li className='hover:text-[var(--color-primary-100)]'>Features</li>
+            <li className='hover:text-[var(--color-primary-100)]'>About</li>
+            <li className='hover:text-[var(--color-primary-100)]'>Contact</li>
           </ul>
         </div>
         <div className="flex items-center gap-4">
@@ -56,12 +56,13 @@ export default function Home() {
             transition={{ duration: 0.75 }}
             className="mt-10"
           >
-            <a
-              href="/join"
-              className="px-8 py-2 text-md sm:py-3 bg-white hover:bg-[#49ffea] text-black rounded-lg sm:text-lg"
+            <Link
+              shallow={false}
+              href="/quiz/join"
+              className="px-8 py-2 text-md sm:py-3 bg-white hover:shadow-[0px_0px_15px_0px_#fff] text-black rounded-lg sm:text-lg"
             >
               Try It Now
-            </a>
+            </Link>
           </motion.div>
         </div>
         <div className="code_editor_img_cover flex justify-center items-center mb-28 sm:mb-40">

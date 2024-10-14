@@ -5,6 +5,7 @@ import axios from 'axios'
 import { IQuizDetailsPayload, IQuizQuestionPayload } from '@/interfaces/payload'
 import toast from 'react-hot-toast'
 import Loading from '@/components/loading/loading'
+import AiLoading from '@/components/loading/aiLoading'
 
 interface GenerateQuizProps {
   generateQuizType: string
@@ -24,6 +25,7 @@ const GenerateQuiz = ({
   } | null>(null)
   const [quizQuestions, setQuizQuestions] = useState<IQuizQuestionPayload[]>([])
   const [loading, setLoading] = useState(false)
+  const [questionsLoading, setQuestionsLoading] = useState(false)
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -102,16 +104,18 @@ const GenerateQuiz = ({
     const data = {
       quizDetails
     }
+    setQuestionsLoading(true)
     try {
       const response = await axios.post('/api/quiz/generate', data)
       if (response.status === 200) {
         const generatedQuestions = response.data.generatedQuestions
-        console.log(generatedQuestions)
         setQuizQuestions(generatedQuestions)
       }
     } catch (error) {
       console.log(error)
       alert(error)
+    } finally {
+      setQuestionsLoading(false)
     }
   }
 
@@ -128,20 +132,24 @@ const GenerateQuiz = ({
   return (
     <div className="w-full h-[500px] flex flex-col items-center">
       <form className="w-[95%]" onSubmit={handleSubmit}>
-        <div className="text-black text-xl border border-gray-300 py-2 px-6 mb-4">
+        <div className="text-black text-xl border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)] py-3 px-6 mb-4">
           {quizDetails?.title}
         </div>
-        <div className="h-[400px] overflow-y-auto p-6 border border-gray-300">
-          {quizQuestions.map((question, index) => {
-            return (
-              <Question
-                key={`${question}-${index}`}
-                question={question}
-                questionIndex={index}
-                handleChange={handleChange}
-              />
-            )
-          })}
+        <div className="h-[400px] overflow-y-auto p-6 border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)]">
+          {questionsLoading ? (
+            <AiLoading />
+          ) : (
+            quizQuestions.map((question, index) => {
+              return (
+                <Question
+                  key={`${question}-${index}`}
+                  question={question}
+                  questionIndex={index}
+                  handleChange={handleChange}
+                />
+              )
+            })
+          )}
         </div>
         <div className="flex items-center justify-between mt-4">
           <button
@@ -155,10 +163,16 @@ const GenerateQuiz = ({
             type="submit"
             className="flex items-center justify-center text-black text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-[var(--color-primary-300)] hover:text-white"
           >
-            {
-              loading ?
-              <Loading type='spin' color='var(--color-primary-300)' width={24} height={24} /> : 'Create'
-            }
+            {loading ? (
+              <Loading
+                type="spin"
+                color="var(--color-primary-300)"
+                width={24}
+                height={24}
+              />
+            ) : (
+              'Create'
+            )}
           </button>
         </div>
       </form>

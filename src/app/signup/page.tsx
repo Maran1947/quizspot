@@ -1,6 +1,7 @@
 'use client'
 import { signupHandler } from '@/actions/signup'
-import Loading from '@/components/loading/loading'
+import SubmitButton from '@/components/button/submitButton'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -18,7 +19,6 @@ const SignupPage = () => {
     email?: string
     username?: string
   } | null>(null)
-  const [loading, setLoading] = useState(false)
 
   const router = useRouter()
 
@@ -29,13 +29,12 @@ const SignupPage = () => {
       })
       return
     }
-    setLoading(true)
     try {
       const response = await signupHandler(formData)
       if (response.redirectPath) {
         router.replace('/dashboard')
       }
-      console.log(response)
+
       if (response?.errors) {
         setErrors({
           name: response.errors.name?.join(' - ') || '',
@@ -52,8 +51,6 @@ const SignupPage = () => {
     } catch (error) {
       console.log(error)
       toast.error('Something went wrong')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -180,25 +177,15 @@ const SignupPage = () => {
                   </span>
                 )}
               </div>
-              <button
-                type="submit"
-                disabled={loading}
-                className="flex items-center justify-center w-full text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-200)] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              >
-                {loading ? (
-                  <Loading type="spin" color="white" width={24} height={24} />
-                ) : (
-                  'Sign up'
-                )}
-              </button>
+              <SubmitButton label='Sign up' />
               <p className="text-sm font-light text-gray-600">
                 Already have an account?{' '}
-                <a
+                <Link
                   href="/signin"
                   className="font-medium text-[var(--color-primary-200)] hover:underline"
                 >
                   Sign in
-                </a>
+                </Link>
               </p>
             </form>
           </div>

@@ -19,3 +19,7 @@ GEMINI_API_KEY=
 ```
     npm run dev
 ```
+
+## Attributions
+
+- <a href="https://storyset.com/online">Online illustrations by Storyset</a>

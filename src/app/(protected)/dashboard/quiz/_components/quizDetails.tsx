@@ -31,7 +31,7 @@ const QuizDetails = ({
   }
 
   return (
-    <div className="w-96 p-8 border border-gray-300 shadow rounded-md">
+    <div className="w-[400px] p-8 border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)]">
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
@@ -42,7 +42,7 @@ const QuizDetails = ({
           </label>
           <input
             onChange={(e) => setTitle(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline focus:border-[var(--color-primary-100)]"
             id="title"
             type="text"
             placeholder="Enter your quiz title"
@@ -58,7 +58,7 @@ const QuizDetails = ({
           </label>
           <input
             onChange={(e) => setTopic(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline focus:border-[var(--color-primary-100)]"
             id="topic"
             type="text"
             placeholder="Enter your quiz topic"
@@ -74,7 +74,7 @@ const QuizDetails = ({
           </label>
           <select
             onChange={(e) => setDifficulty(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline focus:border-[var(--color-primary-100)]"
             id="difficulty"
             required
           >
@@ -93,7 +93,7 @@ const QuizDetails = ({
           </label>
           <input
             onChange={(e) => setTotalQuestions(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline focus:border-[var(--color-primary-100)]"
             id="totalQuestions"
             type="number"
             placeholder="eg. 5"
@@ -110,7 +110,7 @@ const QuizDetails = ({
           </label>
           <input
             onChange={(e) => setTimePerQuestion(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline focus:border-[var(--color-primary-100)]"
             id="username"
             type="number"
             placeholder="eg. 30"

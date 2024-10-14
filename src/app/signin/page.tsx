@@ -1,15 +1,14 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import toast from 'react-hot-toast'
 import { signinHandler } from '@/actions/sign'
-import Loading from '@/components/loading/loading'
+import SubmitButton from '@/components/button/submitButton'
+import Link from 'next/link'
 
 const SigninPage = () => {
-  const [loading, setLoading] = useState(false)
 
   const handleSigninFormAction = async (formData: FormData) => {
     try {
-      setLoading(true)
       const response = await signinHandler(formData)
       if (response?.errors) {
         toast.error(
@@ -24,8 +23,6 @@ const SigninPage = () => {
     } catch (error) {
       console.log(error)
       alert('Something went wrong')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -81,24 +78,15 @@ const SigninPage = () => {
                   Forgot password?
                 </a>
               </div>
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-200)] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              >
-                {
-                  loading ?
-                  <Loading type='spin' color='white' width={24} height={24} /> : 'Sign in'
-                }
-              </button>
+             <SubmitButton label='Sign in' />
               <p className="text-sm font-light text-gray-600">
                 Don’t have an account yet?{' '}
-                <a
+                <Link
                   href="/signup"
                   className="font-medium text-[var(--color-primary-200)] hover:underline"
                 >
                   Sign up
-                </a>
+                </Link>
               </p>
             </form>
           </div>
