@@ -38,12 +38,12 @@ const QuizPage = () => {
   }, [refresh])
 
   return (
-    <div className="w-full p-8">
+    <div className="w-full p-4 sm:p-8">
       <div className="w-full flex items-center justify-between">
-        <div className="text-black text-2xl font-medium">Manage Quizzes</div>
+        <div className="text-black text-xl sm:text-2xl font-medium">Manage Quizzes</div>
         <Link
           href={'/dashboard/quiz/create'}
-          className="text-black border font-medium border-gray-300 bg-[var(--color-primary-500)] shadow-[0px_1px_10px_0px_#0000001a] px-6 py-2 rounded-[50px]"
+          className="text-center text-black text-sm sm:text-base border font-medium border-gray-300 bg-[var(--color-primary-500)] shadow-[0px_1px_10px_0px_#0000001a] px-4 sm:px-6 py-2 rounded-[50px]"
         >
           Create Quiz
         </Link>

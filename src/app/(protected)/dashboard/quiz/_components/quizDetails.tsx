@@ -31,7 +31,7 @@ const QuizDetails = ({
   }
 
   return (
-    <div className="w-[400px] p-8 border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)]">
+    <div className="w-[98%] sm:w-[400px] p-4 sm:p-8 border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)]">
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label

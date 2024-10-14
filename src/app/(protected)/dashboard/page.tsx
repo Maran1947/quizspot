@@ -49,7 +49,7 @@ const DashboardPage = () => {
               text: 'Questions Answered Per Day',
               align: 'center',
               style: {
-                fontSize: '16px',
+                fontSize: window && window.innerWidth > 400 ? '16px' : '12px',
                 fontWeight: 'bold',
                 color: '#333'
               }
@@ -61,7 +61,7 @@ const DashboardPage = () => {
                   last7Days[last7Days.length - 1].fullDate
                 })`,
                 style: {
-                  fontSize: '14px',
+                  fontSize: window && window.innerWidth > 400 ? '14px' : '10px',
                   fontWeight: 'bold'
                 }
               },
@@ -73,7 +73,7 @@ const DashboardPage = () => {
               title: {
                 text: 'Total Questions Answered',
                 style: {
-                  fontSize: '14px',
+                  fontSize: window && window.innerWidth > 400 ? '14px' : '10px',
                   fontWeight: 'bold'
                 }
               },
@@ -127,7 +127,7 @@ const DashboardPage = () => {
   }, [])
 
   return (
-    <div className="w-full p-8">
+    <div className="w-full p-4 sm:p-8">
       <div>
         <h2 className="text-2xl text-black font-semibold mb-4">Dashboard</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -172,7 +172,7 @@ const DashboardPage = () => {
                 series={chartData.series}
                 type="line"
                 width="100%"
-                height={320}
+                height={window && window.innerWidth > 400 ? 320 : 220}
               />
             ) : (
               <Loading
@@ -190,8 +190,8 @@ const DashboardPage = () => {
               </h3>
               <div className="mt-5">
                 <div className="flex items-center gap-2">
-                  <span className="inline-block w-3 h-3 rounded-full bg-[var(--color-primary-100)]"></span>
-                  <p>Attended Quiz: The Web Series of Web3</p>
+                  <span className="inline-block min-w-3 h-3 rounded-full bg-[var(--color-primary-100)]"></span>
+                  <p>Attempted Quiz: The Web Series of Web3</p>
                 </div>
               </div>
             </div>

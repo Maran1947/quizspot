@@ -58,7 +58,7 @@ const QuizViewPage = () => {
   }, [])
 
   return (
-    <div className="w-full p-8">
+    <div className="w-full p-4 sm:p-8">
       {loading ? (
         <div className="w-full flex items-center justify-center">
           <Loading type="bubbles" color="#dd92e4" width={100} height={100} />
@@ -75,7 +75,7 @@ const QuizViewPage = () => {
               />
             </div>
           </div>
-          <div className="flex items-center justify-between mt-2 mb-4">
+          <div className="flex flex-col sm:flex-row  items-center justify-between mt-2 mb-4">
             <h2 className="text-sm sm:text-xl border border-[var(--color-primary-100)] text-[var(--color-primary-100)] py-1 px-4">
               Total Questions: {quiz.totalQuestions}
             </h2>

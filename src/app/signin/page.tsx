@@ -22,7 +22,7 @@ const SigninPage = () => {
       }
     } catch (error) {
       console.log(error)
-      alert('Something went wrong')
+      toast.error('Something went wrong')
     }
   }
 

@@ -114,9 +114,9 @@ const QuizRoomPage = () => {
     handleContinue()
   }, [questionTimer])
   return (
-    <div className="w-full pt-20 h-screen bg-[var(--color-surface-mixed-200)]">
+    <div className="w-full pt-10 sm:pt-20 pb-5 min-h-screen bg-[var(--color-surface-mixed-200)]">
       {questions.length > 0 ? (
-        <div className="max-w-[800px] p-8 mx-8 md:mx-auto border border-[var(--color-primary-100)] rounded-[50px] shadow-md">
+        <div className="max-w-[800px] px-4 sm:px-8 py-8 mx-1 sm:mx-8 md:mx-auto border border-[var(--color-primary-100)] rounded-[50px] shadow-md">
           <div className="flex justify-between items-center">
             <div className="text-[var(--color-primary-200)] text-lg">
               <span className="font-semibold">{currentQuestion + 1}</span> of{' '}

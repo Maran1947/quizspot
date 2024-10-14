@@ -38,28 +38,28 @@ const DashboardSidebar = () => {
   const pathname = usePathname()
   console.log(pathname)
   return (
-    <div className="w-[120px] h-[92vh] drop-shadow-lg bg-[var(--color-surface-mixed-300)] flex flex-col justify-between py-4 text-black">
-      <div className="px-6">
+    <div className="w-[40px] sm:w-[120px] h-[92vh] drop-shadow-lg bg-[var(--color-surface-mixed-300)] flex flex-col justify-between py-4 text-black">
+      <div className="px-2 sm:px-6">
         <MenuItem
           redirectTo="/dashboard"
           text="Dashboard"
-          textClassName="text-sm"
-          icon={<MdDashboard className="text-4xl" />}
+          textClassName="hidden sm:block text-sm"
+          icon={<MdDashboard className="text-2xl sm:text-4xl" />}
           pathname={pathname}
         />
         <MenuItem
           redirectTo="/dashboard/quiz"
           text="Quiz"
-          textClassName="text-sm"
-          icon={<MdQuiz className="text-4xl" />}
+          textClassName="hidden sm:block text-sm"
+          icon={<MdQuiz className="text-2xl sm:text-4xl" />}
           pathname={pathname}
         />
       </div>
-      <div className="px-6">
+      <div className="px-2 sm:px-6">
         <MenuItem
           text={'Settings'}
-          textClassName={'text-sm'}
-          icon={<IoMdSettings className="text-4xl" />}
+          textClassName={'hidden sm:block text-sm'}
+          icon={<IoMdSettings className="text-2xl sm:text-4xl" />}
           redirectTo="/dashboard/settings"
           pathname={pathname}
         />

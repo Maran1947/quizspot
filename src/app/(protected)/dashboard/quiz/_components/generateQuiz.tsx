@@ -135,7 +135,7 @@ const GenerateQuiz = ({
         <div className="text-black text-xl border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)] py-3 px-6 mb-4">
           {quizDetails?.title}
         </div>
-        <div className="h-[400px] overflow-y-auto p-6 border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)]">
+        <div className="h-[400px] overflow-y-auto p-2 sm:p-6 border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)]">
           {questionsLoading ? (
             <AiLoading />
           ) : (

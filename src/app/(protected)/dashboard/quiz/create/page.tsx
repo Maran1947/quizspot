@@ -15,7 +15,7 @@ const CreateQuizPage = () => {
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center text-white">
-      <div className="w-[600px] flex flex-col items-center justify-center gap-12">
+      <div className="max-w-[600px] flex flex-col items-center justify-center gap-4 sm:gap-12">
         <Stepper activeStep={activeStep} />
 
         {activeStep === 1 ? (

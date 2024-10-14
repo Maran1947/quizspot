@@ -7,10 +7,10 @@ import Link from 'next/link'
 
 const DashboardHeader = () => {
   return (
-    <div className="w-full h-[8vh] text-black bg-[var(--color-surface-mixed-300)] drop-shadow-lg flex items-center justify-between px-6">
+    <div className="w-full h-[8vh] text-black bg-[var(--color-surface-mixed-300)] drop-shadow-lg flex items-center justify-between px-2 sm:px-6">
       <div className="flex items-center gap-4">
         <RiMenu2Line className="text-2xl cursor-pointer" />
-        <h2 className="text-black text-2xl">QuizSpot</h2>
+        <h2 className="hidden sm:block text-black text-2xl">QuizSpot</h2>
       </div>
       <div className="flex items-center gap-2">
         <Link

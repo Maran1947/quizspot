@@ -4,14 +4,14 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Footer from '@/components/footer/footer'
 import Image from 'next/image'
-import dashboardScreenshot from '../assets/images/dashboard_quiz_ui.png'
+import dashboardScreenshot from '../assets/images/quiz_dashboard_ui.png'
 
 export default function Home() {
   return (
     <div className="w-full bg-gradient-to-t from-[var(--color-primary-300)] to-[var(--color-primary-100)]">
       <header className="flex items-center justify-around px-8 py-3">
         <h1 className="text-white font-bold text-2xl border-x-4 rounded-lg px-2">QuizSpot.ai</h1>
-        <div className="rounded-full py-2 px-5  gap-8 bg-white">
+        <div className="hidden sm:block rounded-full py-2 px-5  gap-8 bg-white">
           <ul className="flex items-center gap-4 text-black">
             <li className='hover:text-[var(--color-primary-100)]'>Features</li>
             <li className='hover:text-[var(--color-primary-100)]'>About</li>
@@ -75,6 +75,7 @@ export default function Home() {
             <Image
               width={1200}
               height={1200}
+              style={{ width: 'auto', height: 'auto' }}
               className="w-full h-auto"
               src={dashboardScreenshot}
               alt="codesocket editor screenshot"
@@ -113,7 +114,7 @@ export default function Home() {
         >
           <a
             href="https://github.com/maran1947/quizspot"
-            className="flex items-center w-full px-4 py-2 text-base font-medium text-black bg-[#0bff75] rounded-md hover:bg-[#46db87]"
+            className="flex items-center w-full px-4 py-2 text-base font-medium text-black bg-[#0bff75] rounded-md hover:shadow-[0px_0px_15px_0px_#fff]"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

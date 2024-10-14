@@ -2,8 +2,8 @@ import React from 'react'
 
 const SettingsPage = () => {
   return (
-    <div className="w-full p-8">
-      <div className="w-[80%] mx-auto bg-[var(--color-suface-mixed-200)] rounded-lg border border-[var(--color-primary-500)]">
+    <div className="w-full p-4 sm:p-8">
+      <div className="w-full sm:w-[80%] mx-auto bg-[var(--color-suface-mixed-200)] rounded-lg border border-[var(--color-primary-500)]">
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
           <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-800 md:text-2xl">
             Change Password
@@ -20,7 +20,7 @@ const SettingsPage = () => {
                 type="password"
                 name="currentPassword"
                 id="currentPassword"
-                className="bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                className="bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:outline-none focus:border-[var(--color-primary-100)] block w-full p-2.5"
                 placeholder="••••••••"
                 required
               />
@@ -37,7 +37,7 @@ const SettingsPage = () => {
                 name="newPassword"
                 id="newPassword"
                 placeholder="••••••••"
-                className="bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                className="bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:outline-none focus:border-[var(--color-primary-100)] block w-full p-2.5"
                 required
               />
             </div>
@@ -53,7 +53,7 @@ const SettingsPage = () => {
                 name="confirmPassword"
                 id="confirmPassword"
                 placeholder="••••••••"
-                className="bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                className="bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:outline-none focus:border-[var(--color-primary-100)] block w-full p-2.5"
                 required
               />
             </div>

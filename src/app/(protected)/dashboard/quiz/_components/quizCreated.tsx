@@ -15,7 +15,7 @@ const QuizCreated = ({ quizRoomCode }: { quizRoomCode: string }) => {
   }
 
   return (
-    <div className="w-[400px] p-8 bg-[var(--color-primary-500)] border border-[var(--color-primary-100)] rounded-lg">
+    <div className="w-[98%] sm:w-[400px] p-8 bg-[var(--color-primary-500)] border border-[var(--color-primary-100)] rounded-lg">
       <div className="flex items-center justify-center">
         <Image
           className="rounded-full"
