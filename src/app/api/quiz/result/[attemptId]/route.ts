@@ -62,7 +62,7 @@ export async function GET(
 
     const result = {
       accuracy,
-      totalCorrectAnswers,
+      totalCorrectAnswered: totalCorrectAnswers,
       score,
       totalScore,
       totalQuestionsAnswered: submissions.length
