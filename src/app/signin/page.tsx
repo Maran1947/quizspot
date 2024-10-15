@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import toast from 'react-hot-toast'
-import { signinHandler } from '@/actions/sign'
+import { signinHandler } from '@/actions/signin'
 import SubmitButton from '@/components/button/submitButton'
 import Link from 'next/link'
 

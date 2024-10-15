@@ -34,8 +34,9 @@ export async function GET() {
     })
 
     const resultMap = last7DaysData.reduce((map: { [key: string]: number }, attempt) => {
+      console.log(attempt.result)
       const createdAtDate = new Date(attempt.createdAt).toISOString().split('T')[0] // Get YYYY-MM-DD
-      const totalQuestionsAnswered = (attempt.result as { totalQuestionsAnswered: number }).totalQuestionsAnswered || 0
+      const totalQuestionsAnswered = (attempt.result as { totalQuestionsAnswered: number })?.totalQuestionsAnswered || 0
 
       if (!map[createdAtDate]) {
         map[createdAtDate] = totalQuestionsAnswered
