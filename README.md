@@ -1,6 +1,9 @@
 # QuizSpot AI
 An AI powered quiz web app.
 
+## Screenshots
+![quiz_dashboard_ui](https://github.com/user-attachments/assets/dc92a11d-d7a7-436d-b4dc-f4c847a4e616)
+
 ## 🏗 Setup
 Follow the below steps to setup this repo locally.
 
