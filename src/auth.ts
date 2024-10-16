@@ -43,7 +43,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           )
 
           if (isPasswordMatch) {
-            console.log({ user })
             return user
           }
         }

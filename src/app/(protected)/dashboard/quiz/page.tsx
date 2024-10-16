@@ -1,19 +1,29 @@
 'use client'
-import React, {useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
 import SkeletonLoading from '@/components/loading/skeletonLoading'
 import QuizCard from './_components/quizCard'
+import { IQuiz, IQuizAttemptsGroup } from '@/interfaces/quiz'
 
 const QuizPage = () => {
   const [quizzes, setQuizzes] = useState([])
   const [loading, setLoading] = useState(false)
   const [refresh, setRefresh] = useState(false)
+  const [filterBy, setFilterBy] = useState('created')
+
+
+  const handleFilterBy = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFilterBy(e.target.value)
+    setQuizzes([])
+  }
 
   const getUserQuizzes = async () => {
     try {
       setLoading(true)
-      const response = await axios.get('/api/quiz/all')
+      const response = await axios.get('/api/quiz/all', {
+        params: { filterBy }
+      })
       if (response.status === 200) {
         console.log({ quizzes: response.data.quizzes })
         setQuizzes(response.data.quizzes)
@@ -28,7 +38,7 @@ const QuizPage = () => {
 
   useEffect(() => {
     getUserQuizzes()
-  }, [])
+  }, [filterBy])
 
   useEffect(() => {
     if (refresh) {
@@ -40,7 +50,16 @@ const QuizPage = () => {
   return (
     <div className="w-full p-4 sm:p-8">
       <div className="w-full flex items-center justify-between">
-        <div className="text-black text-xl sm:text-2xl font-medium">Manage Quizzes</div>
+        <div>
+          <select
+            value={filterBy}
+            onChange={handleFilterBy}
+            className="border-2 border-[var(--color-primary-500)] bg-[var(--color-surface-mixed-400)] text-black shadow focus:outline-none rounded-full px-2 py-1.5 text-xl font-medium"
+          >
+            <option value="created">Created</option>
+            <option value="attempted">Attempted</option>
+          </select>
+        </div>
         <Link
           href={'/dashboard/quiz/create'}
           className="text-center text-black text-sm sm:text-base border font-medium border-gray-300 bg-[var(--color-primary-500)] shadow-[0px_1px_10px_0px_#0000001a] px-4 sm:px-6 py-2 rounded-[50px]"
@@ -54,17 +73,19 @@ const QuizPage = () => {
               <SkeletonLoading key={index} />
             ))
           : quizzes.map(
-              (
-                quiz: {
-                  title: string
-                  topic: string
-                  createdAt: string
-                  id: string
-                  totalQuestions: number
-                },
-                index
-
-              ) => <QuizCard key={index} quiz={quiz} setRefresh={setRefresh} />
+              (quiz: IQuiz | IQuizAttemptsGroup, index) => (
+                <QuizCard
+                  key={index}
+                  quiz={
+                    filterBy === 'created'
+                      ? (quiz as IQuiz)
+                      : (quiz as IQuizAttemptsGroup).quiz
+                  }
+                  attempts={(quiz as IQuizAttemptsGroup)?.attempts || []}
+                  isCreated={filterBy === 'created'}
+                  setRefresh={setRefresh}
+                />
+              )
             )}
       </div>
 

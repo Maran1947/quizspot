@@ -6,7 +6,7 @@ interface IQuiz {
   timePerQuestion: number
   quizType: string
   roomCode: string
-  createdAt: string
+  createdAt: Date
 }
 
 interface IOption {
@@ -22,6 +22,19 @@ interface IQuestion {
   questionText: string
   correctOption: string
   options: IOption[]
+}
+
+interface IAttempt {
+  id: string
+  quizId: string
+  result: IQuizResult | null
+  quiz?: IQuiz
+  createdAt: Date
+}
+
+interface IQuizAttemptsGroup {
+  quiz: IQuiz,
+  attempts: IAttempt[]
 }
 
 interface ISubmission {
@@ -40,4 +53,4 @@ interface IQuizResult {
   totalCorrectAnswers: number
 }
 
-export type { IQuiz, IQuestion, IOption, IQuizResult, ISubmission }
+export type { IQuiz, IQuestion, IOption, IQuizResult, IAttempt, ISubmission, IQuizAttemptsGroup }
