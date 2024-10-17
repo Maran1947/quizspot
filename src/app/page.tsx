@@ -79,6 +79,7 @@ export default function Home() {
               className="w-full h-auto"
               src={dashboardScreenshot}
               alt="codesocket editor screenshot"
+              priority
             />
           </motion.div>
         </div>

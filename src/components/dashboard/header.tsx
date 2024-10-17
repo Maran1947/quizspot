@@ -4,6 +4,7 @@ import { RiMenu2Line } from 'react-icons/ri'
 import { MdLogout } from 'react-icons/md'
 import { handleLogout } from '@/actions/logout'
 import Link from 'next/link'
+import ThemeSwitchButton from '../button/themeSwitchButton'
 
 const DashboardHeader = () => {
   return (
@@ -13,6 +14,7 @@ const DashboardHeader = () => {
         <h2 className="hidden sm:block text-black text-2xl">QuizSpot</h2>
       </div>
       <div className="flex items-center gap-2">
+        <ThemeSwitchButton className="text-2xl" />
         <Link
           href={'/quiz/join'}
           className="flex items-center gap-2 text-[var(--color-primary-200)] border border-[var(--color-primary-200)] font-medium px-5 py-1 rounded-[50px] ml-2"

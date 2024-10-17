@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
+import { ThemeToggleProvider } from '@/providers/themeProvider'
 // import SocketProvider from '@/providers/socketProvider'
 
 const geistSans = localFont({
@@ -26,13 +27,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* <SocketProvider> */}
+        <ThemeToggleProvider>
           {children}
           <Toaster />
+        </ThemeToggleProvider>
         {/* </SocketProvider> */}
       </body>
     </html>

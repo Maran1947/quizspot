@@ -25,7 +25,9 @@ const MenuItem = ({
     <div
       onClick={handleRedirect}
       className={`flex flex-col gap-2 items-center py-2 mt-2 cursor-pointer hover:text-[var(--color-primary-300)] ${
-        pathname === redirectTo ? 'text-[var(--color-primary-100)]' : 'text-black'
+        pathname === redirectTo
+          ? 'text-[var(--color-primary-100)]'
+          : 'text-black'
       }`}
     >
       {icon}
