@@ -18,6 +18,7 @@ export async function GET() {
       where: { userId: user.id }
     })
     const distinctAttemptedQuizzes = await prisma.attempt.findMany({
+      where: { userId: user.id },
       select: { quizId: true },
       distinct: ['quizId']
     })
