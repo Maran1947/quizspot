@@ -33,6 +33,7 @@ model Quiz {
   userId         String   @db.ObjectId
   title          String
   topic          String
+  difficulty     String
   totalQuestions Int
   timePerQuestion Int
   quizType       String

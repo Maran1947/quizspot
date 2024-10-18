@@ -24,6 +24,7 @@ export async function POST(req: Request) {
         topic: quizDetails.topic,
         totalQuestions: quizDetails.totalQuestions,
         timePerQuestion: quizDetails.timePerQuestion,
+        difficulty: quizDetails.difficulty,
         userId: user.id,
         roomCode: nanoid(10)
       }
