@@ -54,7 +54,7 @@ const QuizPage = () => {
           <select
             value={filterBy}
             onChange={handleFilterBy}
-            className="border-2 border-[var(--color-primary-500)] bg-[var(--color-surface-mixed-400)] text-black shadow focus:outline-none rounded-full px-2 py-1.5 text-xl font-medium"
+            className="border-2 border-[var(--color-primary-500)] bg-[var(--color-surface-mixed-400)] text-black shadow focus:outline-none rounded-full px-2 py-1.5 text-xl font-medium dark:bg-[var(--color-dark-surface-500)] dark:text-gray-400 dark:border-purple-700"
           >
             <option value="created">Created</option>
             <option value="attempted">Attempted</option>
@@ -67,7 +67,7 @@ const QuizPage = () => {
           Create Quiz
         </Link>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4 dark:gap-6">
         {loading
           ? [1, 2, 3, 4, 5, 6, 7].map((index) => (
               <SkeletonLoading key={index} />

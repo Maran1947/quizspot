@@ -66,8 +66,8 @@ const QuizViewPage = () => {
         </div>
       ) : quiz ? (
         <div>
-          <div className="flex items-center justify-between text-black border-b border-black mb-4 py-1">
-            <h2 className="text-3xl">{quiz.title}</h2>
+          <div className="flex items-center justify-between text-black border-b border-black dark:border-gray-400 mb-4 py-1">
+            <h2 className="text-3xl dark:text-gray-400">{quiz.title}</h2>
             <div className="text-black flex gap-2 items-center">
               <Link href={`/dashboard/quiz/${quiz.id}/edit`} shallow={true}>
                 <FaEdit className="cursor-pointer text-lg text-[var(--color-primary-200)] hover:text-[var(--color-primary-400)]" />
@@ -79,11 +79,11 @@ const QuizViewPage = () => {
             </div>
           </div>
           <div className="flex flex-col sm:flex-row  items-center justify-between mt-2 mb-4">
-            <h2 className="text-sm sm:text-xl border border-[var(--color-primary-100)] text-[var(--color-primary-100)] py-1 px-4">
+            <h2 className="text-sm sm:text-xl border border-[var(--color-primary-100)] text-[var(--color-primary-100)] py-1 px-4 dark:bg-[var(--color-dark-surface-500)]">
               Total Questions: {quiz.totalQuestions}
             </h2>
             <div className="flex items-center">
-              <p className="text-sm sm:text-md py-1 px-2 sm:py-2 sm:px-4 font-medium text-[var(--color-primary-100)] rounded-tl-md rounded-bl-md border border-r-none border-[var(--color-primary-100)]">
+              <p className="text-sm sm:text-md py-1 px-2 sm:py-2 sm:px-4 font-medium text-[var(--color-primary-100)] rounded-tl-md rounded-bl-md border border-r-none border-[var(--color-primary-100)] dark:bg-[var(--color-dark-surface-500)]">
                 {quiz.id}
               </p>
               <CopyToClipboard text={quiz.id} onCopy={handleOnCopy}>
@@ -97,9 +97,9 @@ const QuizViewPage = () => {
             return (
               <div
                 key={question.id}
-                className="bg-[var(--color-surface-mixed-500)] mb-4 shadow-md"
+                className="bg-[var(--color-surface-mixed-500)] mb-4 shadow-md rounded-tl-lg rounded-tr-lg dark:bg-[var(--color-dark-surface-500)]"
               >
-                <h3 className="mb-3 bg-[var(--color-primary-100)] p-3 rounded-tl-lg rounded-tr-lg text-white">
+                <h3 className="mb-3 bg-[var(--color-primary-100)] dark:bg-purple-800 p-3 rounded-tl-lg rounded-tr-lg text-white dark:text-gray-300">
                   Q{question.questionNumber + 1 + '. ' + question.questionText}
                 </h3>
                 <div className="p-3">
@@ -112,8 +112,8 @@ const QuizViewPage = () => {
                         <span
                           className={`flex items-center justify-center min-w-[24px] h-[24px] border border-gray-400 ${
                             question.correctOption === option.optionNumber
-                              ? 'border-green-400 bg-green-200'
-                              : 'border-gray-400'
+                              ? 'border-green-400 bg-green-200 dark:text-black'
+                              : 'border-gray-400 dark:text-gray-400'
                           }`}
                         >
                           {option.optionNumber}
@@ -122,7 +122,7 @@ const QuizViewPage = () => {
                           className={
                             question.correctOption === option.optionNumber
                               ? 'bg-green-200'
-                              : ''
+                              : 'dark:text-gray-400'
                           }
                         >
                           {option.optionText}

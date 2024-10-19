@@ -31,7 +31,7 @@ const QuizDetails = ({
   }
 
   return (
-    <div className="w-[98%] sm:w-[400px] p-4 sm:p-8 border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)]">
+    <div className="w-[98%] sm:w-[400px] p-4 sm:p-8 border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)] dark:bg-[var(--color-dark-surface-mixed)]">
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
@@ -42,7 +42,7 @@ const QuizDetails = ({
           </label>
           <input
             onChange={(e) => setTitle(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline focus:border-[var(--color-primary-100)]"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline focus:border-[var(--color-primary-100)] dark:bg-[var(--color-dark-surface-500)] dark:border-gray-400 dark:text-gray-400"
             id="title"
             type="text"
             placeholder="Enter your quiz title"
@@ -58,7 +58,7 @@ const QuizDetails = ({
           </label>
           <input
             onChange={(e) => setTopic(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline focus:border-[var(--color-primary-100)]"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline focus:border-[var(--color-primary-100)] dark:bg-[var(--color-dark-surface-500)] dark:border-gray-400 dark:text-gray-400"
             id="topic"
             type="text"
             placeholder="Enter your quiz topic"
@@ -74,7 +74,7 @@ const QuizDetails = ({
           </label>
           <select
             onChange={(e) => setDifficulty(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline focus:border-[var(--color-primary-100)]"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline focus:border-[var(--color-primary-100)] dark:bg-[var(--color-dark-surface-500)] dark:border-gray-400 dark:text-gray-400"
             id="difficulty"
             required
           >
@@ -93,7 +93,7 @@ const QuizDetails = ({
           </label>
           <input
             onChange={(e) => setTotalQuestions(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline focus:border-[var(--color-primary-100)]"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline focus:border-[var(--color-primary-100)] dark:bg-[var(--color-dark-surface-500)] dark:border-gray-400 dark:text-gray-400"
             id="totalQuestions"
             type="number"
             placeholder="eg. 5"
@@ -110,7 +110,7 @@ const QuizDetails = ({
           </label>
           <input
             onChange={(e) => setTimePerQuestion(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline focus:border-[var(--color-primary-100)]"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black bg-transparent leading-tight focus:outline-none focus:shadow-outline focus:border-[var(--color-primary-100)] dark:bg-[var(--color-dark-surface-500)] dark:border-gray-400 dark:text-gray-400"
             id="username"
             type="number"
             placeholder="eg. 30"
@@ -123,13 +123,13 @@ const QuizDetails = ({
           <button
             onClick={() => setActiveStep(0)}
             type="button"
-            className="text-black text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-black hover:text-white"
+            className="text-black text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-black hover:text-white dark:text-gray-400 dark:border:text-gray-200"
           >
             Back
           </button>
           <button
             type="submit"
-            className="text-black text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-[var(--color-primary-300)] hover:text-white"
+            className="text-black text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-[var(--color-primary-300)] hover:text-white dark:text-gray-400 dark:hover:text-gray-200 dark:border:text-gray-200"
           >
             Continue
           </button>

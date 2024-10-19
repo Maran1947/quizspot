@@ -7,27 +7,39 @@
   --foreground: #171717;
   --brand-color: #8500ff;
 
-  /** CSS DARK THEME PRIMARY COLORS */
+  /** CSS THEME PRIMARY COLORS */
   --color-primary-100: #8500ff;
   --color-primary-200: #9837ff;
   --color-primary-300: #a954ff;
   --color-primary-400: #b86eff;
   --color-primary-500: #c687ff;
   --color-primary-600: #d39fff; 
-  /** CSS DARK THEME SURFACE COLORS */
+
+  /** CSS THEME SURFACE COLORS */
   --color-surface-100: #ffffff;
   --color-surface-200: #ffffff;
   --color-surface-300: #ffffff;
   --color-surface-400: #ffffff;
   --color-surface-500: #ffffff;
   --color-surface-600: #ffffff;
-  /** CSS DARK THEME MIXED SURFACE COLORS */
+
+  /** CSS THEME MIXED SURFACE COLORS */
   --color-surface-mixed-100: #f6e9ff;
   --color-surface-mixed-200: #f7ebff;
   --color-surface-mixed-300: #f9eeff;
   --color-surface-mixed-400: #f9f0ff;
   --color-surface-mixed-500: #faf3ff;
   --color-surface-mixed-600: #fbf5ff;
+
+  /** CSS DARK THEME PRIMARY COLORS */
+  --color-dark-primary: #2e0748;
+
+  /** CSS DARK THEME SURFACE COLORS */
+  --color-dark-surface: #121212;
+  --color-dark-surface-500: #30303033;
+  
+  /** CSS DARK THEME MIXED SURFACE COLORS */
+  --color-dark-surface-mixed: #1e1e1e;
 }
 
 @media (prefers-color-scheme: dark) {

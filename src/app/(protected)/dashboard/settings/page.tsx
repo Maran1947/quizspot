@@ -47,9 +47,9 @@ const SettingsPage = () => {
   }
   return (
     <div className="w-full p-4 sm:p-8">
-      <div className="w-full sm:w-[80%] mx-auto border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)]">
+      <div className="w-full sm:w-[80%] mx-auto border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)] dark:bg-[var(--color-dark-surface-mixed)]">
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-800 md:text-2xl">
+          <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-800 md:text-2xl dark:text-gray-400">
             Change Password
           </h1>
           <form
@@ -60,7 +60,7 @@ const SettingsPage = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block mb-2 text-sm font-medium text-gray-500"
+                className="block mb-2 text-sm font-medium text-gray-500 dark:text-gray-400"
               >
                 Current password
               </label>
@@ -68,8 +68,7 @@ const SettingsPage = () => {
                 type="password"
                 name="currentPassword"
                 id="currentPassword"
-                className="bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:outline-none focus:border-[var(--color-primary-100)] block w-full p-2.5"
-                placeholder="••••••••"
+                className="dark:text-gray-400 dark:bg-[var(--color-dark-surface-500)] dark:border-gray-400 bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:outline-none focus:border-[var(--color-primary-100)] block w-full p-2.5"
                 required
               />
               {errors && errors.currentPassword && (
@@ -81,7 +80,7 @@ const SettingsPage = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block mb-2 text-sm font-medium text-gray-500"
+                className="block mb-2 text-sm font-medium text-gray-500 dark:text-gray-400"
               >
                 New password
               </label>
@@ -89,8 +88,7 @@ const SettingsPage = () => {
                 type="password"
                 name="newPassword"
                 id="newPassword"
-                placeholder="••••••••"
-                className="bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:outline-none focus:border-[var(--color-primary-100)] block w-full p-2.5"
+                className="dark:text-gray-400 dark:bg-[var(--color-dark-surface-500)] dark:border-gray-400 bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:outline-none focus:border-[var(--color-primary-100)] block w-full p-2.5"
                 required
               />
                {errors && errors.newPassword && (
@@ -102,7 +100,7 @@ const SettingsPage = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block mb-2 text-sm font-medium text-gray-500"
+                className="block mb-2 text-sm font-medium text-gray-500 dark:text-gray-400"
               >
                 Confirm password
               </label>
@@ -110,8 +108,7 @@ const SettingsPage = () => {
                 type="password"
                 name="confirmPassword"
                 id="confirmPassword"
-                placeholder="••••••••"
-                className="bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:outline-none focus:border-[var(--color-primary-100)] block w-full p-2.5"
+                className="dark:text-gray-400 dark:bg-[var(--color-dark-surface-500)] dark:border-gray-400 bg-[var(--color-surface-mixed-200)] border border-gray-300 text-black rounded-lg focus:outline-none focus:border-[var(--color-primary-100)] block w-full p-2.5"
                 required
               />
               {errors && errors.confirmPassword && (

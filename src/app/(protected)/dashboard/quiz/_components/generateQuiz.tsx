@@ -132,10 +132,10 @@ const GenerateQuiz = ({
   return (
     <div className="w-full h-[500px] flex flex-col items-center">
       <form className="w-[95%]" onSubmit={handleSubmit}>
-        <div className="text-black text-xl border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)] py-3 px-6 mb-4">
+        <div className="text-black text-xl border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)] py-3 px-6 mb-4 dark:bg-[var(--color-dark-surface-mixed)] dark:text-gray-400">
           {quizDetails?.title}
         </div>
-        <div className="h-[400px] overflow-y-auto p-2 sm:p-6 border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)]">
+        <div className="h-[400px] overflow-y-auto p-2 sm:p-6 border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)] dark:bg-[var(--color-dark-surface-mixed)]">
           {questionsLoading ? (
             <AiLoading />
           ) : (
@@ -155,13 +155,13 @@ const GenerateQuiz = ({
           <button
             onClick={() => setActiveStep(1)}
             type="button"
-            className="text-black text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-[black] hover:text-white"
+            className="text-black text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-[black] hover:text-white dark:text-gray-400 dark:border:text-gray-200"
           >
             Back
           </button>
           <button
             type="submit"
-            className="flex items-center justify-center text-black text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-[var(--color-primary-300)] hover:text-white"
+            className="flex items-center justify-center text-black text-md outline-none border border-gray-300 w-24 py-1 px-2 shadow hover:bg-[var(--color-primary-300)] hover:text-white dark:text-gray-400 dark:hover:text-gray-200 dark:border:text-gray-200"
           >
             {loading ? (
               <Loading

@@ -170,10 +170,10 @@ const QuizEditPage = () => {
         </div>
       ) : (
         <div>
-          <div className="mb-8 p-4 sm:p-8 border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)]">
+          <div className="mb-8 p-4 sm:p-8 border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)] dark:bg-[var(--color-dark-surface-mixed)]">
             <form method="post" onSubmit={handleUpdateQuizDetails}>
               <div className="flex items-center justify-between">
-                <h2 className="text-lg sm:text-2xl mb-4">Edit Quiz Details</h2>
+                <h2 className="text-lg sm:text-2xl mb-4 dark:text-gray-400">Edit Quiz Details</h2>
                 <SubmitButton
                   label="Update"
                   className="w-28"
@@ -191,7 +191,7 @@ const QuizEditPage = () => {
                   <input
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    className="block py-3 px-4 mb-3 appearance-none border border-[var(--color-primary-500)] rounded w-full text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)]"
+                    className="block py-3 px-4 mb-3 appearance-none border border-[var(--color-primary-500)] rounded w-full text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)] dark:text-gray-400 dark:bg-[var(--color-dark-surface-500)] dark:focus:bg-gray-800 dark:text-gray-400 dark:bg-[var(--color-dark-surface-500)] dark:focus:bg-gray-800"
                     id="title"
                     type="text"
                     required
@@ -207,7 +207,7 @@ const QuizEditPage = () => {
                   <input
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
-                    className="block py-3 px-4 mb-3 appearance-none border border-[var(--color-primary-500)] rounded w-full text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)]"
+                    className="block py-3 px-4 mb-3 appearance-none border border-[var(--color-primary-500)] rounded w-full text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)] dark:text-gray-400 dark:bg-[var(--color-dark-surface-500)] dark:focus:bg-gray-800"
                     id="topic"
                     type="text"
                     required
@@ -224,7 +224,7 @@ const QuizEditPage = () => {
                     <select
                       value={difficulty}
                       onChange={(e) => setDifficulty(e.target.value)}
-                      className="block py-3 px-4 mb-3 appearance-none border border-[var(--color-primary-500)] rounded w-full text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)]"
+                      className="block py-3 px-4 mb-3 appearance-none border border-[var(--color-primary-500)] rounded w-full text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)] dark:text-gray-400 dark:bg-[var(--color-dark-surface-500)] dark:focus:bg-gray-800"
                       id="difficulty"
                       required
                     >
@@ -244,7 +244,7 @@ const QuizEditPage = () => {
                     <input
                       value={totalQuestions}
                       onChange={(e) => setTotalQuestions(e.target.value)}
-                      className="block py-3 px-4 mb-3 appearance-none border border-[var(--color-primary-500)] rounded w-full text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)]"
+                      className="block py-3 px-4 mb-3 appearance-none border border-[var(--color-primary-500)] rounded w-full text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)] dark:text-gray-400 dark:bg-[var(--color-dark-surface-500)] dark:focus:bg-gray-800"
                       id="totalQuestions"
                       type="number"
                       placeholder="eg. 5"
@@ -262,7 +262,7 @@ const QuizEditPage = () => {
                     <input
                       value={timePerQuestion}
                       onChange={(e) => setTimePerQuestion(e.target.value)}
-                      className="block py-3 px-4 mb-3 appearance-none border border-[var(--color-primary-500)] rounded w-full text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)]"
+                      className="block py-3 px-4 mb-3 appearance-none border border-[var(--color-primary-500)] rounded w-full text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)] dark:text-gray-400 dark:bg-[var(--color-dark-surface-500)] dark:focus:bg-gray-800"
                       id="username"
                       type="number"
                       placeholder="eg. 30"
@@ -275,8 +275,8 @@ const QuizEditPage = () => {
               </div>
             </form>
           </div>
-          <div className="p-4 sm:p-8 border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)]">
-            <h2 className="text-lg sm:text-2xl mb-4">Edit Questions</h2>
+          <div className="p-4 sm:p-8 border-t-2 border-[var(--color-primary-500)] shadow rounded-md bg-[var(--color-surface-mixed-400)] dark:bg-[var(--color-dark-surface-mixed)]">
+            <h2 className="text-lg sm:text-2xl mb-4 dark:text-gray-400">Edit Questions</h2>
             {questions.map((question) => {
               return (
                 <form
@@ -285,10 +285,10 @@ const QuizEditPage = () => {
                   data-question-id={question.id}
                   data-question-number={question.questionNumber}
                 >
-                  <div className="border-t-2 border-[var(--color-primary-600)] shadow rounded-md bg-[var(--color-surface-mixed-400)] p-2 sm:p-6 mb-4">
+                  <div className="border-t-2 border-[var(--color-primary-600)] shadow rounded-md bg-[var(--color-surface-mixed-400)] p-2 sm:p-6 mb-4 dark:bg-[var(--color-dark-surface-mixed)] dark:shadow-gray-700">
                     <div className="mb-4">
                       <label
-                        className="block text-gray-500 text-sm font-bold mb-2"
+                        className="block text-gray-500 text-sm font-bold mb-2 dark:text-gray-400"
                         htmlFor="title"
                       >
                         Question {question.questionNumber}:
@@ -297,7 +297,7 @@ const QuizEditPage = () => {
                         onChange={handleChange}
                         defaultValue={question.questionText || ''}
                         name={`question-${question.id}`}
-                        className="block py-3 px-4 mb-3 appearance-none border border-[var(--color-primary-500)] rounded w-full text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)]"
+                        className="block py-3 px-4 mb-3 appearance-none border border-[var(--color-primary-500)] rounded w-full text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)] dark:text-gray-400 dark:bg-[var(--color-dark-surface-500)] dark:focus:bg-gray-800"
                         id="title"
                         type="text"
                         placeholder={`Type your question ${question.questionNumber + 1}`}
@@ -305,7 +305,7 @@ const QuizEditPage = () => {
                       />
                     </div>
                     <label
-                      className="block text-gray-500 text-sm font-bold mb-2"
+                      className="block text-gray-500 text-sm font-bold mb-2 dark:text-gray-400"
                       htmlFor="title"
                     >
                       Option:
@@ -320,7 +320,7 @@ const QuizEditPage = () => {
                               onChange={handleChange}
                               name={`question-${question.id}-option-${option.optionNumber}`}
                               defaultValue={option.optionText}
-                              className="block py-3 px-4 mb-3 appearance-none border border-[var(--color-primary-500)] rounded w-full text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)]"
+                              className="block py-3 px-4 mb-3 appearance-none border border-[var(--color-primary-500)] rounded w-full text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)] dark:text-gray-400 dark:bg-[var(--color-dark-surface-500)] dark:focus:bg-gray-800"
                               id={question.questionNumber + option.optionText}
                               type="text"
                               placeholder={`Option ${option.optionNumber}`}
@@ -333,7 +333,7 @@ const QuizEditPage = () => {
                     <div className="mt-4 flex flex-col gap-4 sm:gap-0 sm:flex-row items-center justify-between">
                       <div className="flex items-center gap-2">
                         <label
-                          className="block text-gray-500 text-sm font-bold"
+                          className="block text-gray-500 text-sm font-bold dark:text-gray-400"
                           htmlFor="title"
                         >
                           Correct Option:
@@ -342,7 +342,7 @@ const QuizEditPage = () => {
                           defaultValue={question.correctOption}
                           onChange={handleChange}
                           name={`question-${question.id}-correct-option`}
-                          className="py-2 px-3 border border-[var(--color-primary-500)] rounded text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)]"
+                          className="py-2 px-3 border border-[var(--color-primary-500)] rounded text-black bg-transparent leading-tight focus:bg-white focus:outline-none focus:border-[var(--color-primary-100)] dark:text-gray-400 dark:bg-[var(--color-dark-surface-500)] dark:focus:bg-gray-800"
                           required
                         >
                           <option value="">Select</option>

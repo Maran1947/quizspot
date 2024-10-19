@@ -24,10 +24,10 @@ const MenuItem = ({
   return (
     <div
       onClick={handleRedirect}
-      className={`flex flex-col gap-2 items-center py-2 mt-2 cursor-pointer hover:text-[var(--color-primary-300)] ${
+      className={`flex flex-col gap-2 items-center py-2 mt-2 cursor-pointer hover:text-[var(--color-primary-300)] dark:hover:text-[var(--color-primary-300)] ${
         pathname === redirectTo
           ? 'text-[var(--color-primary-100)]'
-          : 'text-black'
+          : 'text-black dark:text-gray-400'
       }`}
     >
       {icon}
@@ -40,7 +40,7 @@ const DashboardSidebar = () => {
   const pathname = usePathname()
   console.log(pathname)
   return (
-    <div className="w-[40px] sm:w-[120px] h-[92vh] drop-shadow-lg bg-[var(--color-surface-mixed-300)] flex flex-col justify-between py-4 text-black">
+    <div className="w-[40px] sm:w-[120px] h-[92vh] drop-shadow-lg bg-[var(--color-surface-mixed-300)] flex flex-col justify-between py-4 text-black dark:bg-[var(--color-dark-surface-mixed)]">
       <div className="px-2 sm:px-6">
         <MenuItem
           redirectTo="/dashboard"

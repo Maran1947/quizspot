@@ -51,7 +51,7 @@ const DashboardPage = () => {
               style: {
                 fontSize: window && window.innerWidth > 400 ? '16px' : '12px',
                 fontWeight: 'bold',
-                color: '#333'
+                color: '#9ca3af'
               }
             },
             xaxis: {
@@ -62,7 +62,8 @@ const DashboardPage = () => {
                 })`,
                 style: {
                   fontSize: window && window.innerWidth > 400 ? '14px' : '10px',
-                  fontWeight: 'bold'
+                  fontWeight: 'bold',
+                  color: '#9ca3af'
                 }
               },
               labels: {
@@ -74,7 +75,8 @@ const DashboardPage = () => {
                 text: 'Total Questions Answered',
                 style: {
                   fontSize: window && window.innerWidth > 400 ? '14px' : '10px',
-                  fontWeight: 'bold'
+                  fontWeight: 'bold',
+                  color: '#9ca3af'
                 }
               },
               min: 0
@@ -82,12 +84,12 @@ const DashboardPage = () => {
             tooltip: {
               shared: true,
               intersect: false
-            }
+            },
           },
           series: [
             {
-              name: 'Total Questions Answered',
-              data: questionsAnsweredPerDayData
+              data: questionsAnsweredPerDayData,
+              color: 'var(--color-primary-300)'
             }
           ]
         })
@@ -129,43 +131,43 @@ const DashboardPage = () => {
   return (
     <div className="w-full p-4 sm:p-8">
       <div>
-        <h2 className="text-2xl text-black font-semibold mb-4">Dashboard</h2>
+        <h2 className="text-2xl text-black font-semibold mb-4 dark:text-gray-400">Dashboard</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {loading ? (
             [1, 2, 3, 4].map((index) => <SkeletonLoading key={index} />)
           ) : (
             <>
-              <div className="h-[150px] rounded-xl shadow-sm flex flex-col items-center justify-center bg-[#cdc3ff]">
+              <div className="h-[150px] rounded-xl shadow-sm flex flex-col items-center justify-center bg-[#cdc3ff] dark:shadow-gray-700 dark:bg-[#9087b7]">
                 <h2 className="text-3xl font-semibold">
                   {dashboardDetails.totalQuizzesCreated}
                 </h2>
-                <p className="text-sm text-gray-600">Total quizzes created</p>
+                <p className="text-sm text-gray-600 dark:text-gray-800">Total quizzes created</p>
               </div>
-              <div className="h-[150px] rounded-xl shadow-sm flex flex-col items-center justify-center bg-[#aac9ff]">
+              <div className="h-[150px] rounded-xl shadow-sm flex flex-col items-center justify-center bg-[#aac9ff] dark:shadow-gray-700 dark:bg-[#64789cec]">
                 <h2 className="text-3xl font-semibold">
                   {dashboardDetails.totalQuizzesAttempted}
                 </h2>
-                <p className="text-sm text-gray-600">Total quizzes attempted</p>
+                <p className="text-sm text-gray-600 dark:text-gray-800">Total quizzes attempted</p>
               </div>
-              <div className="h-[150px] rounded-xl shadow-sm flex flex-col items-center justify-center bg-[#92e3b8]">
+              <div className="h-[150px] rounded-xl shadow-sm flex flex-col items-center justify-center bg-[#92e3b8] dark:shadow-gray-700 dark:bg-[#6fac8c]">
                 <h2 className="text-3xl font-semibold">
                   {dashboardDetails.totalQuestionsAnswered}
                 </h2>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-gray-800">
                   Total questions answered
                 </p>
               </div>
-              <div className="h-[150px] rounded-xl shadow-sm flex flex-col items-center justify-center bg-[#dd92e4]">
+              <div className="h-[150px] rounded-xl shadow-sm flex flex-col items-center justify-center bg-[#dd92e4] dark:shadow-gray-700 dark:bg-[#b476b9]">
                 <h2 className="text-3xl font-semibold">
                   {dashboardDetails.totalCorrectAnswered}
                 </h2>
-                <p className="text-sm text-gray-600">Total correct answered</p>
+                <p className="text-sm text-gray-600 dark:text-gray-800">Total correct answered</p>
               </div>
             </>
           )}
         </div>
         <div className="mt-8 flex flex-col md:flex-row gap-6">
-          <div className="w-full md:w-[60%] rounded-xl bg-[#f9eeff] p-5 shadow-sm">
+          <div className="w-full md:w-[60%] rounded-xl bg-[#f9eeff] p-5 shadow-sm dark:bg-[var(--color-dark-surface-mixed)] dark:shadow-gray-700">
             {chartData && typeof window !== 'undefined' ? (
               <Chart
                 options={chartData.options}
@@ -183,20 +185,20 @@ const DashboardPage = () => {
               />
             )}
           </div>
-          <div className="w-full md:w-[40%] flex flex-col gap-2">
-            <div className="bg-[#f9eeff] shadow-sm rounded-xl p-6 h-full">
-              <h3 className="text-black font-semibold text-xl">
+          <div className="w-full md:w-[40%] flex flex-col gap-6">
+            <div className="bg-[#f9eeff] shadow-sm rounded-xl p-6 h-full dark:bg-[var(--color-dark-surface-mixed)] dark:shadow-gray-700">
+              <h3 className="text-black font-semibold text-xl dark:text-gray-400">
                 Recent Activities
               </h3>
               <div className="mt-5">
                 <div className="flex items-center gap-2">
                   <span className="inline-block min-w-3 h-3 rounded-full bg-[var(--color-primary-100)]"></span>
-                  <p>Attempted Quiz: The Web Series of Web3</p>
+                  <p className='dark:text-gray-400'>Attempted Quiz: The Web Series of Web3</p>
                 </div>
               </div>
             </div>
-            <div className="bg-[#f9eeff] shadow-sm rounded-xl p-6">
-              <h3 className="text-black font-semibold text-xl">Jackpot Quiz</h3>
+            <div className="bg-[#f9eeff] shadow-sm rounded-xl p-6 dark:bg-[var(--color-dark-surface-mixed)] dark:shadow-gray-700">
+              <h3 className="text-black font-semibold text-xl dark:text-gray-400">Jackpot Quiz</h3>
               <h2 className='text-purple-600'>Win big! Coming soon!</h2>
             </div>
           </div>
