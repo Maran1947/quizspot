@@ -8,6 +8,7 @@ import toast from 'react-hot-toast'
 import { FaEdit } from 'react-icons/fa'
 import { MdCopyAll, MdDelete } from 'react-icons/md'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import Link from 'next/link'
 
 const QuizViewPage = () => {
   const [loading, setLoading] = useState(false)
@@ -68,7 +69,9 @@ const QuizViewPage = () => {
           <div className="flex items-center justify-between text-black border-b border-black mb-4 py-1">
             <h2 className="text-3xl">{quiz.title}</h2>
             <div className="text-black flex gap-2 items-center">
-              <FaEdit className="cursor-pointer text-lg text-[var(--color-primary-200)] hover:text-[var(--color-primary-400)]" />
+              <Link href={`/dashboard/quiz/${quiz.id}/edit`} shallow={true}>
+                <FaEdit className="cursor-pointer text-lg text-[var(--color-primary-200)] hover:text-[var(--color-primary-400)]" />
+              </Link>
               <MdDelete
                 onClick={handleDeleteQuiz}
                 className="cursor-pointer text-lg text-[var(--color-primary-200)] hover:text-[var(--color-primary-400)]"

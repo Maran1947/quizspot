@@ -15,7 +15,6 @@ interface QuizCardProps {
 }
 
 const QuizCard = ({ quiz, attempts, setRefresh, isCreated }: QuizCardProps) => {
-  console.log(quiz)
   const handleOnCopy = () => {
     toast.success('Copied successfully!')
   }
@@ -55,7 +54,9 @@ const QuizCard = ({ quiz, attempts, setRefresh, isCreated }: QuizCardProps) => {
         {isCreated ? (
           <>
             <div className="text-black flex gap-2 items-center">
-              <FaEdit className="cursor-pointer text-lg text-[var(--color-primary-200)] hover:text-[var(--color-primary-400)]" />
+              <Link href={`/dashboard/quiz/${quiz.id}/edit`} shallow={true}>
+                <FaEdit className="cursor-pointer text-lg text-[var(--color-primary-200)] hover:text-[var(--color-primary-400)]" />
+              </Link>
               <MdDelete
                 onClick={handleDeleteQuiz}
                 className="cursor-pointer text-lg text-[var(--color-primary-200)] hover:text-[var(--color-primary-400)]"
@@ -69,21 +70,21 @@ const QuizCard = ({ quiz, attempts, setRefresh, isCreated }: QuizCardProps) => {
             </Link>
           </>
         ) : (
-          <div className='w-full flex items-center justify-between'>
+          <div className="w-full flex items-center justify-between">
             <div className="flex flex-col gap-1 text-black">
-            <p className='text-gray-400 text-sm font-medium'>View results</p>
-              <div className='flex items-center gap-1'>
-              {attempts.map((attempt,index) => {
-                return (
-                  <Link
-                    key={attempt.id}
-                    href={`/quiz/result/${attempt.id}`}
-                    className="border border-[var(--color-primary-100)] bg-purple-100 hover:bg-cyan-100 rounded-full w-5 h-5 p-1 flex items-center justify-center text-md text-[var(--color-primary-200)] hover:text-[var(--color-primary-400)]"
-                  >
-                    {index+1}
-                  </Link>
-                )
-              })}
+              <p className="text-gray-400 text-sm font-medium">View results</p>
+              <div className="flex items-center gap-1">
+                {attempts.map((attempt, index) => {
+                  return (
+                    <Link
+                      key={attempt.id}
+                      href={`/quiz/result/${attempt.id}`}
+                      className="border border-[var(--color-primary-100)] bg-purple-100 hover:bg-cyan-100 rounded-full w-5 h-5 p-1 flex items-center justify-center text-md text-[var(--color-primary-200)] hover:text-[var(--color-primary-400)]"
+                    >
+                      {index + 1}
+                    </Link>
+                  )
+                })}
               </div>
             </div>
             <div>

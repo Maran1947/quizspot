@@ -106,7 +106,7 @@ const QuizDetails = ({
             className="block text-gray-400 text-sm font-bold mb-2"
             htmlFor="username"
           >
-            Time per question
+            Time per question (in seconds)
           </label>
           <input
             onChange={(e) => setTimePerQuestion(e.target.value)}
