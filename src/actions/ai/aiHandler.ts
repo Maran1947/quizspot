@@ -53,7 +53,7 @@ const responseSchema: ResponseSchema = {
 }
 
 const model = genAI.getGenerativeModel({
-  model: 'gemini-1.5-flash',
+  model: process.env.GEMINI_LLM_MODEL!,
   generationConfig: {
     responseMimeType: 'application/json',
     responseSchema: responseSchema
